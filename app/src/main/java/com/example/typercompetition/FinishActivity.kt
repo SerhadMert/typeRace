@@ -1,6 +1,5 @@
 package com.example.typercompetition
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.TextView
@@ -18,17 +17,21 @@ class FinishActivity : AppCompatActivity() {
 
 
 
-        textView.text =
-            "Score T=" + trueWord + "F=" + falseWord + "Toplam = " + (trueWord + falseWord)
-        val timer = object : CountDownTimer(4000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
+        textView.text = "Score T=" + trueWord + "F=" + falseWord + "Toplam = " + (trueWord + falseWord)
 
+        //timer 10 saniye sonra main activitye gidicek
+
+        val timer = object : CountDownTimer(10000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                // TODO
+                //      TEXTVİEW KOY ONA EŞİTLE= (millisUntilFinished/1000).toString()
             }
 
             override fun onFinish() {
-                val intent = Intent(this@FinishActivity, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                //BURAYA DOKUNMA SAAT BİTİMİ BURASI
+                /* val intent = Intent(this@FinishActivity, MainActivity::class.java)
+                 startActivity(intent)
+                 finish()*/
             }
         }
         timer.start()
