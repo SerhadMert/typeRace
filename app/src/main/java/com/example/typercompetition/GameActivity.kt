@@ -2,6 +2,7 @@ package com.example.typercompetition
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -9,15 +10,18 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+
 
 const val SCORE_MESSAGE_T = "com.example.typercompetition.SCORE_T"
 const val SCORE_MESSAGE_F = "com.example.typercompetition.SCORE_F"
 
 class GameActivity : AppCompatActivity() {
-    var color = Color.WHITE
+
     var textCompare: String =
             "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam cursus nisl quis tortor aliquam vitae posuere risus lobortis " +
                     "Phasellus sed augue neque Praesent semper tortor lorem ac aliquet nisl vulputate ut Duis volutpat condimentum nunc a commodo " +
@@ -38,6 +42,8 @@ class GameActivity : AppCompatActivity() {
         val scoreText = findViewById<TextView>(R.id.score)
         val mainText = findViewById<TextView>(R.id.main_text)
         val timerText = findViewById<TextView>(R.id.timer_text)
+
+        val color = mainText.currentTextColor
 
 
         //show text and array convert
@@ -115,7 +121,15 @@ class GameActivity : AppCompatActivity() {
     fun spanText(strs: Array<String>, color: Int, strLength: Int): Spannable {
         val spannable = SpannableString(strs.joinToString().replace(",", ""))
         spannable.setSpan(ForegroundColorSpan(color),
-                /* start index */ 0, /* end index */ strLength,
+                0, strLength,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(
+                RelativeSizeSpan(1.1f),
+                0, strs[0].length,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(
+                StyleSpan(Typeface.BOLD),
+                0, strs[0].length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         return spannable
