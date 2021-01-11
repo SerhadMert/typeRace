@@ -51,7 +51,7 @@ class GameActivity : AppCompatActivity() {
         //timer
         val timer = object : CountDownTimer(20000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                timerText.text = millisUntilFinished.toString()
+                timerText.text = (millisUntilFinished / 1000).toString()
             }
 
             override fun onFinish() {
@@ -97,7 +97,7 @@ class GameActivity : AppCompatActivity() {
                         }
                         strs = strs.drop(1).toTypedArray()
                         mainText.text = spanText(strs, color, strs[0].length)
-                        scoreText.text = "Doğru " + trueWord + "-Yanlış " + falseWord
+                        scoreText.text = "Doğru " + trueWord + " -Yanlış " + falseWord
 
                     }
                 }
