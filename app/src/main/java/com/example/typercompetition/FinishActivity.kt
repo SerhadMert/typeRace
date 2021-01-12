@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -19,18 +20,18 @@ class FinishActivity : AppCompatActivity() {
         val trueWord = Integer.parseInt(intent.getStringExtra(SCORE_MESSAGE_T))
         val falseWord = Integer.parseInt(intent.getStringExtra(SCORE_MESSAGE_F))
 
-        val cardView2 = findViewById<CardView>(R.id.cardView2)
-        val cardView3 = findViewById<CardView>(R.id.cardView3)
+        val button1 = findViewById<Button>(R.id.button1)
+        val button2 = findViewById<Button>(R.id.button2)
 
         textView.text = "D=" + trueWord + "Y=" + falseWord
         textView2.text="SKOR = " + (trueWord - falseWord)
 
-        cardView2.setOnClickListener {
+        button1.setOnClickListener {
             val intent = Intent(this@FinishActivity, GameActivity::class.java)
             startActivity(intent)
             finish()
         }
-        cardView3.setOnClickListener {
+        button2.setOnClickListener {
             val intent = Intent(this@FinishActivity, MainActivity::class.java )
             startActivity(intent)
             finish()

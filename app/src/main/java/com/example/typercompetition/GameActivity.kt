@@ -144,7 +144,7 @@ class GameActivity : AppCompatActivity() {
                 0, strLength,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannable.setSpan(
-                RelativeSizeSpan(1.1f),
+                RelativeSizeSpan(1.15f),
                 0, strs[0].length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannable.setSpan(
@@ -171,26 +171,21 @@ class GameActivity : AppCompatActivity() {
                 val dialogBuilder = AlertDialog.Builder(this)
 
                 // set message of alert dialog
-                dialogBuilder.setMessage("Do you want to close this application ?")
+                dialogBuilder.setMessage("Ne Yapmak İstersin ?")
                         // if the dialog is cancelable
                         .setCancelable(false)
                         // positive button text and action
-                        .setPositiveButton("Proceed", DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
+                        .setPositiveButton("Ana Menu", DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
                             val intent = Intent(this@GameActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
                         })
                         // negative button text and action
-                        .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
+                        .setNegativeButton("Devam Et", DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
                             timerMet(currentMillis)
                         })
 
-                // create dialog box
-                val alert = dialogBuilder.create()
-                // set title for alert dialog box
-                alert.setTitle("AlertDialogExample")
-                // show alert dialog
-                alert.show()
+               
             }
 
 

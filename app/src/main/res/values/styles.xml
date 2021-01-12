@@ -7,5 +7,11 @@
 
     </style>
 
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlHighlight">@color/indigo</item>
+        <item name="colorButtonNormal">@color/pink</item>
+    </style>
 
+    <color name="indigo">#74548A</color>
+    <color name="pink">#EE36F4</color>
 </resources>
