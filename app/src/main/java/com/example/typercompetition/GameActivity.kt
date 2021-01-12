@@ -34,7 +34,7 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-        
+
         var trueWord = 0
         var falseWord = 0
 
