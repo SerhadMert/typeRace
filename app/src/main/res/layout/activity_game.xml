@@ -7,12 +7,13 @@
     tools:context=".GameActivity">
 
 
+
     <TextView
         android:id="@+id/main_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
         android:padding="10dp"
@@ -104,8 +105,9 @@
         android:ems="10"
         android:gravity="center"
         android:background="@drawable/game_edittext_background"
-
-
+        android:inputType="textFilter"
+        android:autofillHints="false"
+        
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

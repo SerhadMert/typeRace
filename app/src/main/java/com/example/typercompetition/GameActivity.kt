@@ -12,9 +12,16 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
-import android.widget.EditText
-import android.widget.TextView
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener
+import kotlinx.android.synthetic.main.activity_game.*
+import java.util.*
+import kotlin.concurrent.timer
 
 
 const val SCORE_MESSAGE_T = "com.example.typercompetition.SCORE_T"
@@ -30,19 +37,53 @@ class GameActivity : AppCompatActivity() {
                     "Aliquam metus lorem tristique non metus ac laoreet sodales quam Phasellus hendrerit lorem justo eget scelerisque arcu posuere ac " +
                     "Integer porta dui non mattis iaculis arcu enim convallis"
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_game,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.pause_button ->{
+                //pause game
+                showAlertDialog("Ne yapmak istersin?",null,View.OnClickListener {
+                    val intent = Intent(this@GameActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                })
+            }
+
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showAlertDialog(title: String,view: View?,positiveClickListener: View.OnClickListener ) {
+        AlertDialog.Builder(this)
+                .setTitle(title)
+                .setView(view)
+                .setNegativeButton("Devam Et",null)
+                .setPositiveButton("Ana Menu"){_,_->
+                    positiveClickListener.onClick(null)
+                }.show()
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
 
+
         var trueWord = 0
         var falseWord = 0
+
+
 
         val editText = findViewById<EditText>(R.id.compare_text)
         val scoreText = findViewById<TextView>(R.id.score)
         val mainText = findViewById<TextView>(R.id.main_text)
         val timerText = findViewById<TextView>(R.id.timer_text)
-
         val color = mainText.currentTextColor
 
 
@@ -51,7 +92,6 @@ class GameActivity : AppCompatActivity() {
 
         var strs = textCompare.split(" ").toTypedArray()
         mainText.text = spanText(strs, color, strs[0].length)
-
 
 
         //timer
@@ -70,6 +110,7 @@ class GameActivity : AppCompatActivity() {
             }
         }
         timer.start()
+
 
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -116,22 +157,45 @@ class GameActivity : AppCompatActivity() {
 
 
         })
+
+
+
+
     }
+
 
     fun spanText(strs: Array<String>, color: Int, strLength: Int): Spannable {
         val spannable = SpannableString(strs.joinToString().replace(",", ""))
-        spannable.setSpan(ForegroundColorSpan(color),
-                0, strLength,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannable.setSpan(
-                RelativeSizeSpan(1.1f),
-                0, strs[0].length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            ForegroundColorSpan(color),
+            0, strLength,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         spannable.setSpan(
-                StyleSpan(Typeface.BOLD),
-                0, strs[0].length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            RelativeSizeSpan(1.1f),
+            0, strs[0].length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spannable.setSpan(
+            StyleSpan(Typeface.BOLD),
+            0, strs[0].length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
 
         return spannable
     }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
