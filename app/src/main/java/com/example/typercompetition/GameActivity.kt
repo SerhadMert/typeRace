@@ -1,5 +1,6 @@
 package com.example.typercompetition
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -14,7 +15,6 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -25,6 +25,14 @@ const val SCORE_MESSAGE_T = "com.example.typercompetition.SCORE_T"
 const val SCORE_MESSAGE_F = "com.example.typercompetition.SCORE_F"
 
 class GameActivity : AppCompatActivity() {
+    var trueWord = 0
+    var falseWord = 0
+    var currentMillis = 0L
+    lateinit var timer: CountDownTimer
+    lateinit var timerText: TextView
+    lateinit var scoreText: TextView
+    lateinit var mainText: TextView
+    lateinit var editText: EditText
 
     var textCompare: String =
             "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam cursus nisl quis tortor aliquam vitae posuere risus lobortis " +
@@ -34,52 +42,21 @@ class GameActivity : AppCompatActivity() {
                     "Aliquam metus lorem tristique non metus ac laoreet sodales quam Phasellus hendrerit lorem justo eget scelerisque arcu posuere ac " +
                     "Integer porta dui non mattis iaculis arcu enim convallis"
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_game,menu)
-        return true
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.pause_button ->{
-                //pause game
-                showAlertDialog("Ne yapmak istersin?",null, View.OnClickListener {
-                    val intent = Intent(this@GameActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                })
-            }
-
-
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    private fun showAlertDialog(title: String,view: View?,positiveClickListener: View.OnClickListener ) {
-        AlertDialog.Builder(this)
-                .setTitle(title)
-                .setView(view)
-                .setNegativeButton("Devam Et",null)
-                .setPositiveButton("Ana Menu"){_,_->
-                    positiveClickListener.onClick(null)
-                }.show()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
 
-        var trueWord = 0
-        var falseWord = 0
 
-        val editText = findViewById<EditText>(R.id.compare_text)
-        val scoreText = findViewById<TextView>(R.id.score)
-        val mainText = findViewById<TextView>(R.id.main_text)
-        val timerText = findViewById<TextView>(R.id.timer_text)
+
+        editText = findViewById(R.id.compare_text)
+        scoreText = findViewById(R.id.score)
+        mainText = findViewById(R.id.main_text)
+        timerText = findViewById(R.id.timer_text)
 
         val color = mainText.currentTextColor
-
 
         //show text and array convert
         mainText.text = textCompare
@@ -90,21 +67,8 @@ class GameActivity : AppCompatActivity() {
 
 
         //timer
-        val timer = object : CountDownTimer(20000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                timerText.text = (millisUntilFinished / 1000).toString()
-            }
+        timerMet(20000)
 
-            override fun onFinish() {
-                val intent = Intent(this@GameActivity, FinishActivity::class.java).apply {
-                    putExtra(SCORE_MESSAGE_T, trueWord.toString())
-                    putExtra(SCORE_MESSAGE_F, falseWord.toString())
-                }
-                startActivity(intent)
-                finish()
-            }
-        }
-        timer.start()
 
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -153,6 +117,27 @@ class GameActivity : AppCompatActivity() {
         })
     }
 
+
+    fun timerMet(time: Long) {
+        timer = object : CountDownTimer(time, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                currentMillis = millisUntilFinished
+                timerText.text = (millisUntilFinished / 1000).toString()
+            }
+
+            override fun onFinish() {
+                val intent = Intent(this@GameActivity, FinishActivity::class.java).apply {
+                    putExtra(SCORE_MESSAGE_T, trueWord.toString())
+                    putExtra(SCORE_MESSAGE_F, falseWord.toString())
+                }
+                startActivity(intent)
+                finish()
+            }
+        }
+        timer.start()
+    }
+
+
     fun spanText(strs: Array<String>, color: Int, strLength: Int): Spannable {
         val spannable = SpannableString(strs.joinToString().replace(",", ""))
         spannable.setSpan(ForegroundColorSpan(color),
@@ -168,5 +153,48 @@ class GameActivity : AppCompatActivity() {
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         return spannable
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_game, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.pause_button -> {
+                //pause game
+                timer.cancel()
+
+
+                // build alert dialog
+                val dialogBuilder = AlertDialog.Builder(this)
+
+                // set message of alert dialog
+                dialogBuilder.setMessage("Do you want to close this application ?")
+                        // if the dialog is cancelable
+                        .setCancelable(false)
+                        // positive button text and action
+                        .setPositiveButton("Proceed", DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
+                            val intent = Intent(this@GameActivity, MainActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        })
+                        // negative button text and action
+                        .setNegativeButton("Cancel", DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
+                            timerMet(currentMillis)
+                        })
+
+                // create dialog box
+                val alert = dialogBuilder.create()
+                // set title for alert dialog box
+                alert.setTitle("AlertDialogExample")
+                // show alert dialog
+                alert.show()
+            }
+
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
