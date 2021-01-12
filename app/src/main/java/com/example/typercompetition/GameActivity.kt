@@ -12,8 +12,12 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -29,6 +33,37 @@ class GameActivity : AppCompatActivity() {
                     "Maecenas egestas nulla at consectetur posuere Integer eget lectus et lacus imperdiet fringilla Donec ut ex in erat consequat auctor " +
                     "Aliquam metus lorem tristique non metus ac laoreet sodales quam Phasellus hendrerit lorem justo eget scelerisque arcu posuere ac " +
                     "Integer porta dui non mattis iaculis arcu enim convallis"
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_game,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.pause_button ->{
+                //pause game
+                showAlertDialog("Ne yapmak istersin?",null, View.OnClickListener {
+                    val intent = Intent(this@GameActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                })
+            }
+
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun showAlertDialog(title: String,view: View?,positiveClickListener: View.OnClickListener ) {
+        AlertDialog.Builder(this)
+                .setTitle(title)
+                .setView(view)
+                .setNegativeButton("Devam Et",null)
+                .setPositiveButton("Ana Menu"){_,_->
+                    positiveClickListener.onClick(null)
+                }.show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
