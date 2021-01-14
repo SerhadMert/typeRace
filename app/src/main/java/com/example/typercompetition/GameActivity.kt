@@ -175,8 +175,11 @@ class GameActivity : AppCompatActivity() {
                         // if the dialog is cancelable
                         .setCancelable(false)
                         // positive button text and action
-                        .setPositiveButton("Ana Menu", DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
-                            val intent = Intent(this@GameActivity, MainActivity::class.java)
+                        .setPositiveButton("Çık", DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
+                            val intent = Intent(this@GameActivity, FinishActivity::class.java).apply {
+                                putExtra(SCORE_MESSAGE_T, trueWord.toString())
+                                putExtra(SCORE_MESSAGE_F, falseWord.toString())
+                            }
                             startActivity(intent)
                             finish()
                         })
@@ -184,8 +187,13 @@ class GameActivity : AppCompatActivity() {
                         .setNegativeButton("Devam Et", DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
                             timerMet(currentMillis)
                         })
+                // create dialog box
+                val alert = dialogBuilder.create()
+                // set title for alert dialog box
+                alert.setTitle("AlertDialogExample")
+                // show alert dialog
+                alert.show()
 
-               
             }
 
 
