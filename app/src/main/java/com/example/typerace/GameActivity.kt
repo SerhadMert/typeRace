@@ -81,10 +81,14 @@ class GameActivity : AppCompatActivity() {
                 if (strs.size > 0) {
                     var text = editText.text
                     var deneme = text.toString().replace(" ", "")
-                    if (strs[0].substring(0, deneme.length) == deneme) {
-                        mainText.text = spanText(strs, Color.GREEN, deneme.length)
+                    if (strs[0].length >= deneme.length) {
+                        if (strs[0].substring(0, deneme.length) == deneme) {
+                            mainText.text = spanText(strs, Color.GREEN, deneme.length)
+                        } else {
+                            mainText.text = spanText(strs, Color.RED, deneme.length)
+                        }
                     } else {
-                        mainText.text = spanText(strs, Color.RED, deneme.length)
+                        mainText.text = spanText(strs, Color.RED, strs[0].length)
                     }
 
 
