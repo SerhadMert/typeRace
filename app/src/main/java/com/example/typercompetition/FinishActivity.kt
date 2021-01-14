@@ -8,28 +8,37 @@ import androidx.appcompat.app.AppCompatActivity
 
 
 class FinishActivity : AppCompatActivity() {
+
+    lateinit var scoreTxt: TextView
+    lateinit var wordTxt: TextView
+    lateinit var replayBt: Button
+    lateinit var mainBt: Button
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_finish)
 
-        val textView = findViewById<TextView>(R.id.crd1_text1)
-        val textView2 = findViewById<TextView>(R.id.crd1_text2)
-        val button1 = findViewById<Button>(R.id.button1)
-        val button2 = findViewById<Button>(R.id.button2)
+        supportActionBar?.hide()
+
+        scoreTxt = findViewById(R.id.crd1_score)
+        wordTxt = findViewById(R.id.crd1_true_false_word)
+        replayBt = findViewById(R.id.replayBt)
+        mainBt = findViewById(R.id.mainBt)
 
 
         val trueWord = Integer.parseInt(intent.getStringExtra(SCORE_MESSAGE_T))
         val falseWord = Integer.parseInt(intent.getStringExtra(SCORE_MESSAGE_F))
 
-        textView.text = "D=" + trueWord + "Y=" + falseWord
-        textView2.text = "SKOR = " + (trueWord - falseWord)
+        scoreTxt.text = "SKOR  " + (trueWord * 5 + falseWord * 1)
+        wordTxt.text = "1 dakikada " + (trueWord + falseWord) + " kelime yazdınız.\n bunlardan " + falseWord + " tanesi yanlıştı"
 
-        button1.setOnClickListener {
+        replayBt.setOnClickListener {
             val intent = Intent(this@FinishActivity, GameActivity::class.java)
             startActivity(intent)
             finish()
         }
-        button2.setOnClickListener {
+        mainBt.setOnClickListener {
             val intent = Intent(this@FinishActivity, MainActivity::class.java)
             startActivity(intent)
             finish()

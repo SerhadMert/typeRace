@@ -48,7 +48,7 @@ class GameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
 
-
+        supportActionBar?.title = ""
 
 
         editText = findViewById(R.id.compare_text)
@@ -67,7 +67,7 @@ class GameActivity : AppCompatActivity() {
 
 
         //timer
-        timerMet(20000)
+        timerMet(60000)
 
 
         editText.addTextChangedListener(object : TextWatcher {
