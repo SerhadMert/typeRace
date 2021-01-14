@@ -1,4 +1,4 @@
-package com.example.typercompetition
+package com.example.typerace
 
 import android.content.Intent
 import android.os.Bundle
@@ -31,7 +31,7 @@ class FinishActivity : AppCompatActivity() {
         val falseWord = Integer.parseInt(intent.getStringExtra(SCORE_MESSAGE_F))
 
         scoreTxt.text = "SKOR  " + (trueWord * 5 + falseWord * 1)
-        wordTxt.text = "1 dakikada " + (trueWord + falseWord) + " kelime yazdınız.\n bunlardan " + falseWord + " tanesi yanlıştı"
+        wordTxt.text = "1 dakikada " + (trueWord + falseWord) + " kelime yazdınız.\n bunlardan " + falseWord + " tanesi yanlıştı."
 
         replayBt.setOnClickListener {
             val intent = Intent(this@FinishActivity, GameActivity::class.java)

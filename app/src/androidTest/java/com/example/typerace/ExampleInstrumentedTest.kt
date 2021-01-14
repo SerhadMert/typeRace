@@ -1,4 +1,4 @@
-package com.example.typercompetition
+package com.example.typerace
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

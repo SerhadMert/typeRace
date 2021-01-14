@@ -1,4 +1,4 @@
-package com.example.typercompetition
+package com.example.typerace
 
 import android.content.DialogInterface
 import android.content.Intent
