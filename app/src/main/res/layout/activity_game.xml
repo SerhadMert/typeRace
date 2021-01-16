@@ -49,11 +49,11 @@
                 android:id="@+id/timer_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
+                android:fontFamily="@font/aldrich"
                 android:text="Clock"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="176dp" />
@@ -83,11 +83,11 @@
                 android:id="@+id/score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/aldrich"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
+                android:fontFamily="@font/aldrich"
                 android:text="Doğru 0 -Yanlış 0"
                 app:layout_constraintBottom_toTopOf="@+id/compare_text"
                 app:layout_constraintStart_toStartOf="@+id/compare_text" />
@@ -106,9 +106,9 @@
         android:background="@drawable/game_edittext_background"
         android:ems="10"
         android:fontFamily="@font/aldrich"
-        android:inputType="textVisiblePassword"
-
         android:gravity="center"
+
+        android:inputType="textVisiblePassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

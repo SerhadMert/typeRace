@@ -7,14 +7,14 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
+
 
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var btGame: Button
     lateinit var btGlobal: Button
-    lateinit var consss: ConstraintLayout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                 btGame.setOnClickListener(object : View.OnClickListener {
                     override fun onClick(view: View?) {
                         startActivity(Intent(this@MainActivity, GameActivity::class.java))
+                        
                     }
                 })
             }

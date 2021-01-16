@@ -1,6 +1,7 @@
 package com.example.typerace
 
-import android.content.DialogInterface
+
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -13,12 +14,13 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.layout_popup_menu.view.*
 
 
 const val SCORE_MESSAGE_T = "com.example.typercompetition.SCORE_T"
@@ -33,6 +35,7 @@ class GameActivity : AppCompatActivity() {
     lateinit var scoreText: TextView
     lateinit var mainText: TextView
     lateinit var editText: EditText
+    lateinit var popupMenuBt: Button
 
     var textCompare: String =
             "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam cursus nisl quis tortor aliquam vitae posuere risus lobortis " +
@@ -55,6 +58,7 @@ class GameActivity : AppCompatActivity() {
         scoreText = findViewById(R.id.score)
         mainText = findViewById(R.id.main_text)
         timerText = findViewById(R.id.timer_text)
+        
 
         val color = mainText.currentTextColor
 
@@ -119,6 +123,7 @@ class GameActivity : AppCompatActivity() {
 
 
         })
+
     }
 
 
@@ -144,17 +149,21 @@ class GameActivity : AppCompatActivity() {
 
     fun spanText(strs: Array<String>, color: Int, strLength: Int): Spannable {
         val spannable = SpannableString(strs.joinToString().replace(",", ""))
-        spannable.setSpan(ForegroundColorSpan(color),
-                0, strLength,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         spannable.setSpan(
-                RelativeSizeSpan(1.15f),
-                0, strs[0].length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            ForegroundColorSpan(color),
+            0, strLength,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         spannable.setSpan(
-                StyleSpan(Typeface.BOLD),
-                0, strs[0].length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            RelativeSizeSpan(1.15f),
+            0, strs[0].length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spannable.setSpan(
+            StyleSpan(Typeface.BOLD),
+            0, strs[0].length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
 
         return spannable
     }
@@ -164,6 +173,7 @@ class GameActivity : AppCompatActivity() {
         return true
     }
 
+    @SuppressLint("WrongConstant")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.pause_button -> {
@@ -171,31 +181,38 @@ class GameActivity : AppCompatActivity() {
                 timer.cancel()
 
 
-                // build alert dialog
-                val dialogBuilder = AlertDialog.Builder(this)
+                //CUSTOM ALERTDİALOG
 
-                // set message of alert dialog
-                dialogBuilder.setMessage("Ne Yapmak İstersin ?")
-                        // if the dialog is cancelable
-                        .setCancelable(false)
-                        // positive button text and action
-                        .setPositiveButton("Çık", DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
-                            val intent = Intent(this@GameActivity, FinishActivity::class.java).apply {
-                                putExtra(SCORE_MESSAGE_T, trueWord.toString())
-                                putExtra(SCORE_MESSAGE_F, falseWord.toString())
-                            }
-                            startActivity(intent)
-                            finish()
-                        })
-                        // negative button text and action
-                        .setNegativeButton("Devam Et", DialogInterface.OnClickListener { dialogInterface: DialogInterface, i: Int ->
-                            timerMet(currentMillis)
-                        })
-                // create dialog box
-                val alert = dialogBuilder.create()
-                // set title for alert dialog box
-                // show alert dialog
-                alert.show()
+                //XML DOSYASININ ADI layout_popup_menu.xml Onun tasarımı yapıalcak
+                val mDialogView = LayoutInflater.from(this).inflate(R.layout.layout_popup_menu, null)
+
+                val mBuilder = AlertDialog.Builder(this)
+                    .setView(mDialogView)
+                    .setTitle("Login Form")
+
+                val  mAlertDialog = mBuilder.show()
+
+                mDialogView.button.setOnClickListener {
+
+                    mAlertDialog.dismiss()
+                    timerMet(currentMillis)
+
+                }
+
+                mDialogView.button2.setOnClickListener {
+
+                    Toast.makeText(this,"Serhad burası yapılacak",5).show()
+                }
+                mDialogView.button3.setOnClickListener {
+
+                    val intent = Intent(this@GameActivity, FinishActivity::class.java).apply {
+                        putExtra(SCORE_MESSAGE_T, trueWord.toString())
+                        putExtra(SCORE_MESSAGE_F, falseWord.toString())
+                    }
+                    startActivity(intent)
+                    finish()
+                }
+
 
             }
 
