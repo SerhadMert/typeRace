@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "963426829463",
+    "firebase_url": "https://typercompetition-default-rtdb.firebaseio.com",
+    "project_id": "typercompetition",
+    "storage_bucket": "typercompetition.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963426829463:android:83f169070d05d8a7ec95d2",
+        "android_client_info": {
+          "package_name": "com.example.typerace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963426829463-eal5q5jk82s7ec3rlerv716u13qiredf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf7tNx_3oRBNjPQfj_goEn_ejXf4q9yk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963426829463-eal5q5jk82s7ec3rlerv716u13qiredf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

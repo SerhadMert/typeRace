@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var btGame: Button
     lateinit var btGlobal: Button
+    lateinit var btProfile: ImageButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         btGame = findViewById(R.id.btGame)
         btGlobal = findViewById(R.id.btGlobal)
+        btProfile = findViewById(R.id.btProfile)
 
         Thread {
             try {
@@ -36,20 +39,26 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 btGame.translationY = 1000f
                 btGlobal.translationY = 1000f
+                btProfile.translationY = -200f
 
                 btGame.animate()
                         .translationY(0f)
                         .setInterpolator(LinearInterpolator())
-                        .setStartDelay(1000)
+                        .setStartDelay(500)
                         .start()
                 btGlobal.animate()
                         .translationY(0f)
                         .setInterpolator(LinearInterpolator())
-                        .setStartDelay(1000)
+                        .setStartDelay(500)
                         .start()
-
+                btProfile.animate()
+                        .translationY(0f)
+                        .setInterpolator(LinearInterpolator())
+                        .setStartDelay(500)
+                        .start()
                 btGame.visibility = View.VISIBLE
                 btGlobal.visibility = View.VISIBLE
+                btProfile.visibility = View.VISIBLE
 
 
                 btGame.setOnClickListener(object : View.OnClickListener {
@@ -57,6 +66,12 @@ class MainActivity : AppCompatActivity() {
                         startActivity(Intent(this@MainActivity, GameActivity::class.java))
                         
                     }
+                })
+                btProfile.setOnClickListener(object : View.OnClickListener{
+                    override fun onClick(v: View?) {
+                        startActivity(Intent(this@MainActivity, ProfileActivity::class.java))
+                    }
+
                 })
             }
         }.start()

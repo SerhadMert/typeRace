@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TyperCompetition">
-        <activity android:name="com.example.typerace.GameActivity" />
-        <activity android:name="com.example.typerace.FinishActivity" />
-        <activity android:name="com.example.typerace.MainActivity">
-
+        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".GameActivity" />
+        <activity android:name=".FinishActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
