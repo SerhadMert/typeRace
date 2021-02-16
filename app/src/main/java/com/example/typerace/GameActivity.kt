@@ -20,6 +20,7 @@ import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_settings.view.*
 import kotlinx.android.synthetic.main.layout_popup_menu.view.*
 
 
@@ -188,7 +189,7 @@ class GameActivity : AppCompatActivity() {
 
                 val mBuilder = AlertDialog.Builder(this)
                     .setView(mDialogView)
-                    .setTitle("Login Form")
+                    .setTitle("")
 
                 val  mAlertDialog = mBuilder.show()
 
@@ -201,17 +202,33 @@ class GameActivity : AppCompatActivity() {
 
                 mDialogView.button2.setOnClickListener {
 
-                    Toast.makeText(this,"Serhad burası yapılacak",5).show()
-                }
-                mDialogView.button3.setOnClickListener {
-
-                    val intent = Intent(this@GameActivity, FinishActivity::class.java).apply {
-                        putExtra(SCORE_MESSAGE_T, trueWord.toString())
-                        putExtra(SCORE_MESSAGE_F, falseWord.toString())
-                    }
+                    val intent=Intent(this@GameActivity, GameActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
+
+                mDialogView.button3.setOnClickListener {
+
+                    val mDialogView = LayoutInflater.from(this).inflate(R.layout.activity_settings, null)
+                    val mBuilder = AlertDialog.Builder(this)
+                            .setView(mDialogView)
+                            .setTitle("")
+
+                    val  mAlertDialog = mBuilder.show()
+
+                    mDialogView.button_cikis.setOnClickListener {
+                        mAlertDialog.dismiss()
+                    }
+                }
+
+                mDialogView.button4.setOnClickListener {
+                    val intent=Intent(this@GameActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+
+
+
 
 
             }
