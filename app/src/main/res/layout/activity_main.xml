@@ -28,6 +28,18 @@
         app:srcCompat="@drawable/ic_baseline_person_24"
         tools:ignore="VectorDrawableCompat" />
 
+    <ImageButton
+        android:id="@+id/btSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:theme="@style/MyButton"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_settings_24"
+        tools:ignore="MissingConstraints,VectorDrawableCompat" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="250dp"

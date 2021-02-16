@@ -7,8 +7,9 @@
 
     <Switch
         android:id="@+id/music"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:text="Müzik"
@@ -16,8 +17,9 @@
 
     <Switch
         android:id="@+id/dark_theme"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:layout_marginTop="50dp"
         android:layout_gravity="center"
         android:text="Karanlık Tema"
