@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                 btGame.translationY = 1000f
                 btGlobal.translationY = 1000f
                 btProfile.translationY = -200f
+                btSettings.translationY = -200f
 
                 btGame.animate()
                         .translationY(0f)
