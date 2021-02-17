@@ -90,11 +90,29 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/btGlobal"
+        android:id="@+id/btHowToPlay"
         style="@style/MyButton"
         android:layout_width="150dp"
         android:layout_height="80dp"
         android:layout_marginTop="12dp"
+        android:animateLayoutChanges="true"
+        android:fontFamily="@font/aldrich"
+        android:text="Nasıl Oynanır ?"
+        android:textColor="#fff"
+        android:textSize="25sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btGame"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btGlobal"
+        style="@style/MyButton"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="100dp"
         android:animateLayoutChanges="true"
         android:fontFamily="@font/aldrich"
         android:text="Yakında"

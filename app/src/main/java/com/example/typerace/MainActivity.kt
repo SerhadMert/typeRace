@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_settings.view.*
 
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var btGlobal: Button
     lateinit var btProfile: ImageButton
     lateinit var btSettings: ImageButton
+    lateinit var btHowToPlay: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         btGlobal = findViewById(R.id.btGlobal)
         btProfile = findViewById(R.id.btProfile)
         btSettings = findViewById(R.id.btSettings)
+        btHowToPlay = findViewById(R.id.btHowToPlay)
 
         Thread {
             try {
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                 btGlobal.translationY = 1000f
                 btProfile.translationY = -200f
                 btSettings.translationY = -200f
+                btHowToPlay.translationY=1000f
 
                 btGame.animate()
                         .translationY(0f)
@@ -65,10 +69,16 @@ class MainActivity : AppCompatActivity() {
                         .setInterpolator(LinearInterpolator())
                         .setStartDelay(500)
                         .start()
+                btHowToPlay.animate()
+                        .translationY(0f)
+                        .setInterpolator(LinearInterpolator())
+                        .setStartDelay(500)
+                        .start()
                 btGame.visibility = View.VISIBLE
                 btGlobal.visibility = View.VISIBLE
                 btProfile.visibility = View.VISIBLE
                 btSettings.visibility =View.VISIBLE
+                btHowToPlay.visibility =View.VISIBLE
 
                 btGame.setOnClickListener(object : View.OnClickListener {
                     override fun onClick(view: View?) {
@@ -99,6 +109,14 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 })
+
+                btHowToPlay.setOnClickListener(object : View.OnClickListener{
+                    override fun onClick(v: View?) {
+                        startActivity(Intent(this@MainActivity, HowToPlayActivity::class.java))
+                    }
+
+                })
+
             }
         }.start()
 
