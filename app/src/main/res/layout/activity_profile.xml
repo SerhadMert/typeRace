@@ -44,7 +44,7 @@
                 android:textColor="#fff"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent" />
         //       app:layout_constraintTop_toBottomOf="@+id/imageView"
 
 
@@ -55,7 +55,7 @@
                 android:layout_below="@+id/header_cover_image"
                 android:elevation="4dp"
                 android:paddingBottom="24dp"
-                android:visibility="visible">
+                android:visibility="invisible">
 
 
                 <TextView
@@ -91,12 +91,13 @@
 
 
             <LinearLayout
+                android:id="@+id/profile2_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profile_layout"
                 android:layout_marginTop="5dp"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="invisible">
 
                 <TextView
                     android:layout_width="fill_parent"

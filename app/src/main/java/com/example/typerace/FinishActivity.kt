@@ -28,13 +28,13 @@ class FinishActivity : AppCompatActivity() {
 
 
         val trueWord = Integer.parseInt(intent.getStringExtra(SCORE_MESSAGE_T))
-        var falseWord = Integer.parseInt(intent.getStringExtra(SCORE_MESSAGE_F))
+        val falseWord = Integer.parseInt(intent.getStringExtra(SCORE_MESSAGE_F))
 
         scoreTxt.text = "SKOR  " + (trueWord * 5 + falseWord * 1)
         wordTxt.text = if(falseWord==0)
-            "1 dakikada " + (trueWord) + " doğru kelime yazdınız. "
+            "1 dakikada " + trueWord  + " kelime yazdınız.\n Bunların hepsi doğru :)"
          else
-            "1 dakikada " + (trueWord + falseWord) + " kelime yazdınız.\n Bunlardan " + falseWord + " tanesi yanlıştı."
+            "1 dakikada " + (trueWord + falseWord) + " kelime yazdınız.\n Bunlardan "+trueWord+" tanesi doğru " + falseWord + " tanesi yanlış."
 
         replayBt.setOnClickListener {
             val intent = Intent(this@FinishActivity, GameActivity::class.java)
