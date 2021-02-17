@@ -16,8 +16,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -62,7 +64,7 @@ class ProfileActivity : AppCompatActivity() {
 
         var acct2 = GoogleSignIn.getLastSignedInAccount(getBaseContext())
         if (acct2 != null) {
-
+            acct=acct2
             displayProfile()
 
         }
@@ -111,8 +113,10 @@ class ProfileActivity : AppCompatActivity() {
         if (requestCode === RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
+            acct = GoogleSignIn.getLastSignedInAccount(getBaseContext())!!
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
+            firebaseAuthWithGoogle(acct.idToken!!)
 
         }
     }
@@ -132,6 +136,24 @@ class ProfileActivity : AppCompatActivity() {
             //updateUI(null);
         }
     }
+    private fun firebaseAuthWithGoogle(idToken: String) {
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("firebase auth", "signInWithCredential:success")
+                    val user = auth.currentUser
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w("firebase auth", "signInWithCredential:failure", task.exception)
+                    // ...
+                }
+
+                // ...
+            }
+    }
+
 
 
     fun displayProfile(){
