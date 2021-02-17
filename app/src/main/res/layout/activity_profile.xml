@@ -64,7 +64,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="76dp"
-                    android:textColor="#fff"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -75,7 +74,6 @@
                     android:layout_below="@+id/user_given_name"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="12dp"
-                    android:textColor="#fff"
                     android:textSize="14sp" />
 
                 <TextView
@@ -85,7 +83,6 @@
                     android:layout_below="@+id/user_profile_name"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="12dp"
-                    android:textColor="#fff"
                     android:textSize="14sp" />
             </RelativeLayout>
 

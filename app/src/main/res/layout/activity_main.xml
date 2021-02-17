@@ -18,13 +18,14 @@
         android:id="@+id/btProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:theme="@style/MyButton"
         android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_person_24"
-        tools:ignore="MissingConstraints,VectorDrawableCompat"
-        tools:layout_editor_absoluteX="16dp" />
+        tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
     <ImageButton
         android:id="@+id/btSettings"
@@ -51,7 +52,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.16"
+        app:layout_constraintVertical_bias="0.136"
         app:srcCompat="@drawable/ic_main_icon"
         tools:ignore="VectorDrawableCompat" />
 
@@ -59,7 +60,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/aldrich"
         android:text="TypeRace"
         android:textSize="40sp"
@@ -73,8 +74,8 @@
         android:id="@+id/btGame"
         style="@style/MyButton"
         android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="44dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:animateLayoutChanges="true"
         android:clipChildren="false"
         android:clipToPadding="false"
@@ -84,6 +85,7 @@
         android:textSize="25sp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -91,16 +93,17 @@
         android:id="@+id/btHowToPlay"
         style="@style/MyButton"
         android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:animateLayoutChanges="true"
         android:fontFamily="@font/aldrich"
-        android:text="Nasıl Oynanır ?"
+        android:text='"?"'
         android:textColor="#fff"
         android:textSize="25sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btGame"
         app:layout_constraintVertical_bias="0.0" />
@@ -109,8 +112,8 @@
         android:id="@+id/btGlobal"
         style="@style/MyButton"
         android:layout_width="150dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
         android:animateLayoutChanges="true"
         android:fontFamily="@font/aldrich"
         android:text="Yakında"
@@ -119,11 +122,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btGame"
+        app:layout_constraintTop_toBottomOf="@+id/btHowToPlay"
         app:layout_constraintVertical_bias="0.0" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
