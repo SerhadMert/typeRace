@@ -24,7 +24,7 @@ class HowToPlayActivity : AppCompatActivity (){
             else
                 ShowFragmentOne()
         }
-       Quit.setOnClickListener(object : View.OnClickListener {
+         Quit.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View?) {
                 startActivity(Intent(this@HowToPlayActivity, MainActivity::class.java))
 
