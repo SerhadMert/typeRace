@@ -76,6 +76,8 @@ class MainActivity : AppCompatActivity() {
                         
                     }
                 })
+
+
                 btProfile.setOnClickListener(object : View.OnClickListener{
                     override fun onClick(v: View?) {
                         startActivity(Intent(this@MainActivity, ProfileActivity::class.java))

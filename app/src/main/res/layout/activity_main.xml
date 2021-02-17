@@ -20,25 +20,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:theme="@style/MyButton"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_person_24"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
     <ImageButton
         android:id="@+id/btSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:theme="@style/MyButton"
         android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_settings_24"
-        tools:ignore="MissingConstraints,VectorDrawableCompat" />
+        tools:ignore="MissingConstraints,VectorDrawableCompat"
+         />
 
     <ImageView
         android:id="@+id/imageView"
@@ -102,6 +106,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btGame"
         app:layout_constraintVertical_bias="0.0" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
