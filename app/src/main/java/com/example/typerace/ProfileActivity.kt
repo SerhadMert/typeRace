@@ -83,6 +83,7 @@ class ProfileActivity : AppCompatActivity() {
             override fun onClick(v: View?) {
                 mGoogleSignInClient.signOut()
                 startActivity(Intent(this@ProfileActivity, ProfileActivity::class.java))
+                finish()
             }
 
         })
