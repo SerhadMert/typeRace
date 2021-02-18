@@ -34,6 +34,7 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var image_profile: ImageView
     lateinit var profLayout:RelativeLayout
     lateinit var prof2Layout: LinearLayout
+    lateinit var btHome : ImageButton
 
     lateinit var personName: String
     lateinit var personGivenName: String
@@ -60,6 +61,8 @@ class ProfileActivity : AppCompatActivity() {
         email = findViewById(R.id.email)
         profLayout = findViewById(R.id.profile_layout)
         prof2Layout = findViewById(R.id.profile2_layout)
+        btHome = findViewById(R.id.btHome)
+
 
         var acct2 = GoogleSignIn.getLastSignedInAccount(getBaseContext())
         if (acct2 != null) {
@@ -89,6 +92,13 @@ class ProfileActivity : AppCompatActivity() {
 
         })
 
+        btHome.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(v: View?) {
+                startActivity(Intent(this@ProfileActivity, MainActivity::class.java))
+                finish()
+            }
+
+        })
 
     }
     fun createRequest(){
