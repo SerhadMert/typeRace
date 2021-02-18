@@ -108,7 +108,8 @@
                 android:orientation="vertical"
                 android:visibility="invisible">
 
-                <TextView
+                <EditText
+                    android:id="@+id/txt_kullanici_adi"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -116,7 +117,8 @@
                     android:clickable="true"
                     android:elevation="4dp"
                     android:padding="20dp"
-                    android:text="Deneme"
+                    android:hint="Kullanıcı Adı"
+                    android:textAllCaps="false"
                     android:visibility="visible" />
 
                 <TextView
@@ -131,15 +133,7 @@
                     android:padding="20dp"
                     android:text="Naber" />
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:background="#fff"
-                    android:clickable="true"
-                    android:elevation="4dp"
-                    android:padding="20dp"
-                    android:text="aaaa" />
+
 
                 <Button
                     android:id="@+id/exitBt"

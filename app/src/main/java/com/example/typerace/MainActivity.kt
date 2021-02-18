@@ -110,6 +110,13 @@ class MainActivity : AppCompatActivity() {
 
                 })
 
+                btGlobal.setOnClickListener(object : View.OnClickListener{
+                    override fun onClick(v: View?) {
+                        startActivity(Intent(this@MainActivity, RankActivity::class.java))
+                    }
+
+                })
+
                 btHowToPlay.setOnClickListener(object : View.OnClickListener{
                     override fun onClick(v: View?) {
                         startActivity(Intent(this@MainActivity, HowToPlayActivity::class.java))

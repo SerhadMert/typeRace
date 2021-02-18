@@ -35,6 +35,7 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var profLayout:RelativeLayout
     lateinit var prof2Layout: LinearLayout
     lateinit var btHome : ImageButton
+    lateinit var kullanici_adi : EditText
 
     lateinit var personName: String
     lateinit var personGivenName: String
@@ -62,6 +63,7 @@ class ProfileActivity : AppCompatActivity() {
         profLayout = findViewById(R.id.profile_layout)
         prof2Layout = findViewById(R.id.profile2_layout)
         btHome = findViewById(R.id.btHome)
+        kullanici_adi = findViewById(R.id.txt_kullanici_adi)
 
 
         var acct2 = GoogleSignIn.getLastSignedInAccount(getBaseContext())
@@ -99,6 +101,8 @@ class ProfileActivity : AppCompatActivity() {
             }
 
         })
+
+        
 
     }
     fun createRequest(){
