@@ -1,12 +1,11 @@
 package com.example.typerace
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
-import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_rank.*
 import kotlinx.android.synthetic.main.activity_rank.view.*
@@ -24,19 +23,24 @@ class RankActivity : AppCompatActivity () {
 
         val db = FirebaseFirestore.getInstance()
 
-        val docRef = db.collection("users").document("aTYqUC1wB3Nlhv2DpK8bigDQpbq2")
-        docRef.get()
-                .addOnSuccessListener { document ->
-                    if(document!=null){
-                        Log.d("exist","DocumentSnapshot data : ${document.data}")
-                        username.text=document.getString("nickname")
+        val currentFirebaseUser = FirebaseAuth.getInstance().currentUser
 
-                    } else {
-                        Log.d("noexist","No such document")
+        if(currentFirebaseUser !=null){
+            val docRef = db.collection("users").document(currentFirebaseUser.uid)
+            docRef.get()
+                    .addOnSuccessListener { document ->
+                        if(document!=null){
+                            Log.d("getUsername", "DocumentSnapshot data : ${document.data}")
+                            username.text=document.getString("nickname")
+
+                        } else {
+                            Log.d("getUsername", "No such document")
+                        }
                     }
-                }
-                .addOnFailureListener{exception ->
-                    Log.d("errordb","get failed with",exception)
-                }
+                    .addOnFailureListener{ exception ->
+                        Log.d("getUsername", "get failed with", exception)
+                    }
+        }
+
     }
 }
