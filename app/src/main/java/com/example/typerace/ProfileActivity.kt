@@ -1,6 +1,7 @@
 package com.example.typerace
 
 
+import android.R.attr
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -36,7 +37,10 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var profLayout:RelativeLayout
     lateinit var prof2Layout: LinearLayout
     lateinit var btHome : ImageButton
-    lateinit var kullanici_adi : EditText
+    lateinit var usernameEdit : EditText
+    lateinit var usernameShow : TextView
+    lateinit var editProfile : Button
+    lateinit var saveProfile : Button
 
     lateinit var personName: String
     lateinit var personGivenName: String
@@ -59,12 +63,15 @@ class ProfileActivity : AppCompatActivity() {
         idProf = findViewById(R.id.user_profile_name)
         image_profile = findViewById(R.id.user_profile_photo)
         givenName = findViewById(R.id.user_given_name)
-        exitBT = findViewById(R.id.exitBt)
+        exitBT = findViewById(R.id.exit_bt)
         email = findViewById(R.id.email)
         profLayout = findViewById(R.id.profile_layout)
         prof2Layout = findViewById(R.id.profile2_layout)
-        btHome = findViewById(R.id.btHome)
-        kullanici_adi = findViewById(R.id.txt_kullanici_adi)
+        btHome = findViewById(R.id.home_bt)
+        usernameEdit = findViewById(R.id.username_edit)
+        usernameShow = findViewById(R.id.username_show)
+        editProfile = findViewById(R.id.edit_profile)
+        saveProfile = findViewById(R.id.save_profile)
 
         getUsername()
 
@@ -88,6 +95,26 @@ class ProfileActivity : AppCompatActivity() {
 
         })
 
+        editProfile.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                usernameShow.visibility = View.GONE
+                usernameEdit.visibility = View.VISIBLE
+                saveProfile.visibility = View.VISIBLE
+                editProfile.visibility = View.GONE
+                usernameEdit.setText(usernameShow.text);
+            }
+
+        })
+        saveProfile.setOnClickListener((object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                usernameShow.visibility = View.VISIBLE
+                usernameEdit.visibility = View.GONE
+                saveProfile.visibility = View.GONE
+                editProfile.visibility = View.VISIBLE
+            }
+
+        }))
+
 
         exitBT.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
@@ -98,7 +125,7 @@ class ProfileActivity : AppCompatActivity() {
 
         })
 
-        btHome.setOnClickListener(object: View.OnClickListener{
+        btHome.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 startActivity(Intent(this@ProfileActivity, MainActivity::class.java))
                 finish()
@@ -127,13 +154,20 @@ class ProfileActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        // Result returned from GOOGLE
+
         if (requestCode === RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            acct = GoogleSignIn.getLastSignedInAccount(getBaseContext())!!
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task)
-            firebaseAuthWithGoogle(acct.idToken!!)
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                val account = task.getResult(ApiException::class.java)
+                handleSignInResult(task)
+                firebaseAuthWithGoogle(account?.idToken!!)
+            } catch (e: ApiException) {
+
+                Toast.makeText(applicationContext, "Google hesabına giriş yapılırken bir hata oluştu" + e.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+        } else {
 
         }
     }
@@ -211,7 +245,7 @@ class ProfileActivity : AppCompatActivity() {
                     .addOnSuccessListener { document ->
                         if(document!=null){
                             Log.d("getUsername", "DocumentSnapshot data : ${document.data}")
-                            kullanici_adi.hint=document.getString("nickname")
+                            usernameShow.text=document.getString("nickname")
 
                         } else {
                             Log.d("getUsername", "No such document")

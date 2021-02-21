@@ -3,7 +3,6 @@ package com.example.typerace
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,7 +18,7 @@ class RankActivity : AppCompatActivity () {
         setContentView(R.layout.activity_rank)
 
 
-        val username= findViewById<TextView>(R.id.txt_kullanici_adi)
+        val username= findViewById<TextView>(R.id.username_edit)
 
         val db = FirebaseFirestore.getInstance()
 
