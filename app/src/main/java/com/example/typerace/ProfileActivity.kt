@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 
@@ -65,11 +66,14 @@ class ProfileActivity : AppCompatActivity() {
         btHome = findViewById(R.id.btHome)
         kullanici_adi = findViewById(R.id.txt_kullanici_adi)
 
+        getUsername()
+
 
         var acct2 = GoogleSignIn.getLastSignedInAccount(getBaseContext())
         if (acct2 != null) {
             acct=acct2
             displayProfile()
+
 
         }
         createRequest();
@@ -191,6 +195,31 @@ class ProfileActivity : AppCompatActivity() {
 
             }
 
+        }
+    }
+
+    fun getUsername (){
+
+
+        val db = FirebaseFirestore.getInstance()
+
+        val currentFirebaseUser = FirebaseAuth.getInstance().currentUser
+
+        if(currentFirebaseUser !=null){
+            val docRef = db.collection("users").document(currentFirebaseUser.uid)
+            docRef.get()
+                    .addOnSuccessListener { document ->
+                        if(document!=null){
+                            Log.d("getUsername", "DocumentSnapshot data : ${document.data}")
+                            kullanici_adi.hint=document.getString("nickname")
+
+                        } else {
+                            Log.d("getUsername", "No such document")
+                        }
+                    }
+                    .addOnFailureListener{ exception ->
+                        Log.d("getUsername", "get failed with", exception)
+                    }
         }
     }
 
