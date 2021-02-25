@@ -24,9 +24,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.dialog.MaterialDialogs
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.shreyaspatil.MaterialDialog.MaterialDialog
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -222,12 +225,14 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun timerMet(time: Long) {
         timer = object : CountDownTimer(time, 1000) {
+
             val mDialogView = LayoutInflater.from(this@ProfileActivity).inflate(R.layout.activity_layout_profile_pop_up, null)
             val mBuilder = AlertDialog.Builder(this@ProfileActivity)
-                    .setView(mDialogView)
-                    .setTitle("yükleniyor")
+                .setView(mDialogView)
+                val mAlertDialog=mBuilder.show()
 
-            val mAlertDialog= mBuilder.show()
+
+
 
             override fun onTick(millisUntilFinished: Long) {
                 currentMillis = millisUntilFinished
