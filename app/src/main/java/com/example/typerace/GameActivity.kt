@@ -31,14 +31,13 @@ class GameActivity : AppCompatActivity() {
     var trueWord = 0
     var falseWord = 0
     var currentMillis = 0L
-    lateinit var timer: CountDownTimer
+    private lateinit var timer: CountDownTimer
     lateinit var timerText: TextView
     lateinit var scoreText: TextView
     lateinit var mainText: TextView
     lateinit var editText: EditText
-    lateinit var popupMenuBt: Button
 
-    var textCompare: String =
+    private var textCompare: String =
             "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam cursus nisl quis tortor aliquam vitae posuere risus lobortis " +
                     "Phasellus sed augue neque Praesent semper tortor lorem ac aliquet nisl vulputate ut Duis volutpat condimentum nunc a commodo " +
                     "Praesent venenatis metus lorem, et interdum risus tincidunt eu. Nullam fringilla vel tortor id auctor " +
@@ -66,8 +65,8 @@ class GameActivity : AppCompatActivity() {
         //show text and array convert
         mainText.text = textCompare
 
-        var strs = textCompare.split(" ").toTypedArray()
-        mainText.text = spanText(strs, color, strs[0].length)
+        var splitText: Array<String> = textCompare.split(" ").toTypedArray()
+        mainText.text = spanText(splitText, color, splitText[0].length)
 
 
 
@@ -80,38 +79,37 @@ class GameActivity : AppCompatActivity() {
 
             }
 
+            @SuppressLint("SetTextI18n")
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
 
-                if (strs.size > 0) {
+                if (splitText.isNotEmpty()) {
                     var text = editText.text
-                    var deneme = text.toString().replace(" ", "")
-                    if (strs[0].length >= deneme.length) {
-                        if (strs[0].substring(0, deneme.length) == deneme) {
-                            mainText.text = spanText(strs, Color.GREEN, deneme.length)
+                    val deneme = "$text".replace(" ", "")
+                    if (splitText[0].length >= deneme.length) {
+                        if (splitText[0].substring(0, deneme.length) == deneme) {
+                            mainText.text = spanText(splitText, Color.GREEN, deneme.length)
                         } else {
-                            mainText.text = spanText(strs, Color.RED, deneme.length)
+                            mainText.text = spanText(splitText, Color.RED, deneme.length)
                         }
                     } else {
-                        mainText.text = spanText(strs, Color.RED, strs[0].length)
+                        mainText.text = spanText(splitText, Color.RED, splitText[0].length)
                     }
 
 
-                    var isWhitespace = text.contains(" ")
+                    val isWhitespace = text.contains(" ")
                     if (isWhitespace) {
                         text = text.dropLast(1) as Editable?
-                        println("true")
-                        println("-" + text + "-")
-                        if (text.toString() == strs[0]) {
+                        if (text.toString() == splitText[0]) {
                             trueWord++
                             editText.setText("")
                         } else {
                             falseWord++
                             editText.setText("")
                         }
-                        strs = strs.drop(1).toTypedArray()
-                        mainText.text = spanText(strs, color, strs[0].length)
-                        scoreText.text = "Doğru " + trueWord + " -Yanlış " + falseWord
+                        splitText = splitText.drop(1).toTypedArray()
+                        mainText.text = spanText(splitText, color, splitText[0].length)
+                        scoreText.text = "Doğru $trueWord-Yanlış $falseWord"
 
                     }
                 }
@@ -128,7 +126,7 @@ class GameActivity : AppCompatActivity() {
     }
 
 
-    fun timerMet(time: Long) {
+    private fun timerMet(time: Long) {
         timer = object : CountDownTimer(time, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 currentMillis = millisUntilFinished
@@ -174,6 +172,7 @@ class GameActivity : AppCompatActivity() {
         return true
     }
 
+    @Suppress("NAME_SHADOWING")
     @SuppressLint("WrongConstant")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

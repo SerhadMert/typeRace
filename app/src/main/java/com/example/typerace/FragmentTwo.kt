@@ -1,7 +1,6 @@
 package com.example.typerace
 
 import android.content.Context
-import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,60 +10,61 @@ import androidx.fragment.app.Fragment
 
 class FragmentTwo : Fragment() {
 
-    val TAG="FragmentTwo"
 
     override fun onAttach(context: Context) {
-        Log.d(TAG,"onAttach")
+        Log.d("FragmentTwo","onAttach")
         super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d(TAG,"onCreate")
+        Log.d("FragmentTwo","onCreate")
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d(TAG,"onCreateView")
-        return inflater!!.inflate(R.layout.fragment_two,container,false)
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        Log.d("FragmentTwo","onCreateView")
+        return inflater.inflate(R.layout.fragment_two,container,false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        Log.d(TAG,"onActivityCreated")
+        Log.d("FragmentTwo","onActivityCreated")
         super.onActivityCreated(savedInstanceState)
     }
 
     override fun onStart() {
-        Log.d(TAG,"onStart")
+        Log.d("FragmentTwo","onStart")
         super.onStart()
     }
 
     override fun onResume() {
-        Log.d(TAG,"onResume")
+        Log.d("FragmentTwo","onResume")
         super.onResume()
     }
 
     override fun onPause() {
-        Log.d(TAG,"onPause")
+        Log.d("FragmentTwo","onPause")
         super.onPause()
     }
 
     override fun onStop() {
-        Log.d(TAG,"onStop")
+        Log.d("FragmentTwo","onStop")
         super.onStop()
     }
 
     override fun onDestroyView() {
-        Log.d(TAG,"onDestroyView")
+        Log.d("FragmentTwo","onDestroyView")
         super.onDestroyView()
     }
 
     override fun onDestroy() {
-        Log.d(TAG,"onDestroy")
+        Log.d("FragmentTwo","onDestroy")
         super.onDestroy()
     }
 
     override fun onDetach() {
-        Log.d(TAG,"onDetach")
+        Log.d("FragmentTwo","onDetach")
         super.onDetach()
     }
 }

@@ -16,11 +16,11 @@ import kotlinx.android.synthetic.main.activity_settings.view.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var btGame: Button
-    lateinit var btGlobal: Button
-    lateinit var btProfile: ImageButton
-    lateinit var btSettings: ImageButton
-    lateinit var btHowToPlay: Button
+    private lateinit var btGame: Button
+    private lateinit var btGlobal: Button
+    private lateinit var btProfile: ImageButton
+    private lateinit var btSettings: ImageButton
+    private lateinit var btHowToPlay: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,49 +80,26 @@ class MainActivity : AppCompatActivity() {
                 btSettings.visibility =View.VISIBLE
                 btHowToPlay.visibility =View.VISIBLE
 
-                btGame.setOnClickListener(object : View.OnClickListener {
-                    override fun onClick(view: View?) {
-                        startActivity(Intent(this@MainActivity, GameActivity::class.java))
-                        
+                btGame.setOnClickListener { startActivity(Intent(this@MainActivity, GameActivity::class.java)) }
+
+                btProfile.setOnClickListener { startActivity(Intent(this@MainActivity, ProfileActivity::class.java)) }
+
+                btSettings.setOnClickListener {
+                    val mDialogView = LayoutInflater.from(this@MainActivity).inflate(R.layout.activity_settings, null)
+                    val mBuilder = AlertDialog.Builder(this@MainActivity)
+                            .setView(mDialogView)
+                            .setTitle("")
+
+                    val mAlertDialog = mBuilder.show()
+
+                    mDialogView.button_cikis.setOnClickListener {
+                        mAlertDialog.dismiss()
                     }
-                })
+                }
 
+                btGlobal.setOnClickListener { startActivity(Intent(this@MainActivity, RankActivity::class.java)) }
 
-                btProfile.setOnClickListener(object : View.OnClickListener{
-                    override fun onClick(v: View?) {
-                        startActivity(Intent(this@MainActivity, ProfileActivity::class.java))
-                    }
-
-                })
-                btSettings.setOnClickListener(object : View.OnClickListener{
-                    override fun onClick(v: View?) {
-                        val mDialogView = LayoutInflater.from(this@MainActivity).inflate(R.layout.activity_settings, null)
-                        val mBuilder = AlertDialog.Builder(this@MainActivity)
-                                .setView(mDialogView)
-                                .setTitle("")
-
-                        val  mAlertDialog = mBuilder.show()
-
-                        mDialogView.button_cikis.setOnClickListener {
-                            mAlertDialog.dismiss()
-                        }
-                    }
-
-                })
-
-                btGlobal.setOnClickListener(object : View.OnClickListener{
-                    override fun onClick(v: View?) {
-                        startActivity(Intent(this@MainActivity, RankActivity::class.java))
-                    }
-
-                })
-
-                btHowToPlay.setOnClickListener(object : View.OnClickListener{
-                    override fun onClick(v: View?) {
-                        startActivity(Intent(this@MainActivity, HowToPlayActivity::class.java))
-                    }
-
-                })
+                btHowToPlay.setOnClickListener { startActivity(Intent(this@MainActivity, HowToPlayActivity::class.java)) }
 
             }
         }.start()

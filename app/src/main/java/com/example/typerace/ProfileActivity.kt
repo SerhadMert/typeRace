@@ -188,8 +188,6 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-
-
     private fun createRequest(){
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -200,6 +198,7 @@ class ProfileActivity : AppCompatActivity() {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
     }
+
     private fun signIn(){
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, rcSignIn)
@@ -239,6 +238,7 @@ class ProfileActivity : AppCompatActivity() {
             //updateUI(null);
         }
     }
+
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
