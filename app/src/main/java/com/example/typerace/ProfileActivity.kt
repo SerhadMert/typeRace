@@ -68,24 +68,25 @@ class ProfileActivity : AppCompatActivity() {
         editProfile = findViewById(R.id.edit_profile)
         saveProfile = findViewById(R.id.save_profile)
 
-        getUsername()
 
+        auth = Firebase.auth
 
         val acct2 = GoogleSignIn.getLastSignedInAccount(baseContext)
         if (acct2 != null) {
+
+            getUsername()
             acct=acct2
             displayProfile()
-
-
         }
         createRequest()
 
 
-        auth = Firebase.auth
+
 
         signInBt.setOnClickListener { signIn() }
 
         editProfile.setOnClickListener {
+
             usernameShow.visibility = View.GONE
             usernameEdit.visibility = View.VISIBLE
             saveProfile.visibility = View.VISIBLE
@@ -105,6 +106,7 @@ class ProfileActivity : AppCompatActivity() {
 
         exitBT.setOnClickListener {
             mGoogleSignInClient.signOut()
+            Firebase.auth.signOut()
             startActivity(Intent(this@ProfileActivity, ProfileActivity::class.java))
             finish()
         }
@@ -117,8 +119,8 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-    private fun getCurrentFirebaseUser(): FirebaseUser? {
-        return FirebaseAuth.getInstance().currentUser
+    private fun getCurrentFirebaseUser(): FirebaseUser {
+        return FirebaseAuth.getInstance().currentUser!!
     }
 
     private fun getDatabase(): FirebaseFirestore {
@@ -127,42 +129,43 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun saveNickname(username2 :String){
         if(username2 != username){
-            val db = getDatabase()
-            val currentFirebaseUser = getCurrentFirebaseUser()
+            val db = FirebaseFirestore.getInstance()
+            val currentFirebaseUser = FirebaseAuth.getInstance().currentUser
             if (currentFirebaseUser !=null){
-                db.collection("users").document(currentFirebaseUser.uid).update("nickname", username2)
+                db.collection("users").document(currentFirebaseUser.uid).update("username", username2)
                         .addOnSuccessListener { Log.d("username update", "DocumentSnapshot successfully updated!")
                             getUsername()}
                         .addOnFailureListener { e -> Log.w("username update", "Error updating document", e) }
             }
+        }else{
 
-
+            Toast.makeText(applicationContext,"Kullanıcı adın eskisiyle aynı",Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun getUsername (){
 
-
-        val db = getDatabase()
-
-        val currentFirebaseUser = getCurrentFirebaseUser()
+        Thread.sleep(800)
+        val db = FirebaseFirestore.getInstance()
+        val currentFirebaseUser = FirebaseAuth.getInstance().currentUser
 
         if(currentFirebaseUser !=null){
-            val docRef = db.collection("users").document(currentFirebaseUser.uid)
-            docRef.get()
-                    .addOnSuccessListener { document ->
-                        if(document!=null){
-                            Log.d("getUsername", "DocumentSnapshot data : ${document.data}")
-                            username= document.getString("nickname").toString()
-                            usernameShow.text = username
+            db.collection("users").document(currentFirebaseUser.uid).get()
+                    .addOnSuccessListener { documentSnapshot ->
+                        if(documentSnapshot!=null){
+                            Log.d("pprofile", "DocumentSnapshot data : ${documentSnapshot.data}")
+                            username= documentSnapshot.getString("username").toString()
+                            usernameShow.text = documentSnapshot.getString("username")
 
                         } else {
-                            Log.d("getUsername", "No such document")
+                            Log.d("pprofile", "No such document")
                         }
+                    }.addOnFailureListener{ exception ->
+                        Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
+                        Log.d("pprofile", "get failed with", exception)
                     }
-                    .addOnFailureListener{ exception ->
-                        Log.d("getUsername", "get failed with", exception)
-                    }
+        }else{
+            Log.d("pprofile", "NULL")
         }
     }
 
@@ -183,6 +186,7 @@ class ProfileActivity : AppCompatActivity() {
             givenName.text = personGivenName
             email.text = personEmail
             Glide.with(this).load(personPhoto).into(imageProfile)
+
 
 
         }
@@ -214,8 +218,9 @@ class ProfileActivity : AppCompatActivity() {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
-                handleSignInResult()
                 firebaseAuthWithGoogle(account?.idToken!!)
+                handleSignInResult()
+
             } catch (e: ApiException) {
 
                 Toast.makeText(applicationContext, "Google hesabına giriş yapılırken bir hata oluştu" + e.localizedMessage, Toast.LENGTH_LONG).show()
@@ -225,17 +230,14 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun handleSignInResult() {
         try {
-            //val account = completedTask.getResult(ApiException::class.java)
 
-            // Signed in successfully, show authenticated UI.
             startActivity(Intent(this@ProfileActivity, ProfileActivity::class.java))
             finish()
-            //updateUI(account);
+
         } catch (e: ApiException) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("TAG", "signInResult:failed code=" + e.statusCode)
-            //updateUI(null);
+
+            Log.w("pprofile", "signInResult:failed code=" + e.statusCode)
+
         }
     }
 
@@ -245,14 +247,14 @@ class ProfileActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("firebase auth", "signInWithCredential:success")
+                    Log.d("pprofile", "signInWithCredential:success")
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w("firebase auth", "signInWithCredential:failure", task.exception)
+                    Log.w("pprofile", "signInWithCredential:failure", task.exception)
                     // ...
                 }
 
-                // ...
+
             }
     }
 
