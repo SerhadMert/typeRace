@@ -1,4 +1,4 @@
-package com.example.typerace
+package com.example.typerace.activity
 
 import android.os.Bundle
 import android.util.Log

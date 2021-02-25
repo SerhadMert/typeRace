@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.typerace">
 
     <application
@@ -9,12 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TyperCompetition">
-        <activity android:name=".ProfileActivity"></activity>
-        <activity android:name=".activity.HowToPlayActivity"></activity>
-        <activity android:name=".RankActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".activity.HowToPlayActivity" />
+        <activity android:name=".activity.RankActivity" />
         <activity android:name=".activity.GameActivity" />
         <activity android:name=".activity.FinishActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +27,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"
+        tools:ignore="ManifestOrder" />
 
 </manifest>
