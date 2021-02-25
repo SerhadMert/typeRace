@@ -1,15 +1,22 @@
 package com.example.typerace
 
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.typerace.activity.FinishActivity
 import com.example.typerace.activity.MainActivity
+import com.example.typerace.activity.SCORE_MESSAGE_F
+import com.example.typerace.activity.SCORE_MESSAGE_T
 import com.example.typerace.services.Firestore
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -49,6 +56,10 @@ class ProfileActivity : AppCompatActivity() {
     private val rcSignIn: Int = 1
     private lateinit var auth: FirebaseAuth
 
+    private lateinit var timer: CountDownTimer
+    var currentMillis = 0L
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
@@ -72,7 +83,7 @@ class ProfileActivity : AppCompatActivity() {
 
         val acct2 = GoogleSignIn.getLastSignedInAccount(baseContext)
         if (acct2 != null) {
-            Thread.sleep(1000)
+            timerMet(3000)
             getUsername()
             acct=acct2
             displayProfile()
@@ -204,6 +215,34 @@ class ProfileActivity : AppCompatActivity() {
             Log.w("pprofile", "signInResult:failed code=" + e.statusCode)
 
         }
+    }
+
+
+
+
+    private fun timerMet(time: Long) {
+        timer = object : CountDownTimer(time, 1000) {
+            val mDialogView = LayoutInflater.from(this@ProfileActivity).inflate(R.layout.activity_layout_profile_pop_up, null)
+            val mBuilder = AlertDialog.Builder(this@ProfileActivity)
+                    .setView(mDialogView)
+                    .setTitle("yükleniyor")
+
+            val mAlertDialog= mBuilder.show()
+
+            override fun onTick(millisUntilFinished: Long) {
+                currentMillis = millisUntilFinished
+
+
+
+            }
+
+            override fun onFinish() {
+
+                mAlertDialog.dismiss()
+            }
+
+        }
+        timer.start()
     }
 
 }
