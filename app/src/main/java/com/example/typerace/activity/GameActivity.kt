@@ -1,4 +1,4 @@
-package com.example.typerace
+package com.example.typerace.activity
 
 
 import android.annotation.SuppressLint
@@ -20,6 +20,7 @@ import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.typerace.R
 import kotlinx.android.synthetic.main.activity_settings.view.*
 import kotlinx.android.synthetic.main.layout_popup_menu.view.*
 

@@ -7,23 +7,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.typerace.activity.MainActivity
+import com.example.typerace.services.Firestore
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 
@@ -77,7 +72,7 @@ class ProfileActivity : AppCompatActivity() {
 
         val acct2 = GoogleSignIn.getLastSignedInAccount(baseContext)
         if (acct2 != null) {
-
+            Thread.sleep(1000)
             getUsername()
             acct=acct2
             displayProfile()
@@ -123,56 +118,21 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-    private fun getCurrentFirebaseUser(): FirebaseUser {
-        return FirebaseAuth.getInstance().currentUser!!
-    }
-
-    private fun getDatabase(): FirebaseFirestore {
-        return FirebaseFirestore.getInstance()
-    }
-
     private fun saveNickname(username2 :String){
-        if(username2 != username){
-            val db = getDatabase()
-            val currentFirebaseUser = getCurrentFirebaseUser()
-            if (currentFirebaseUser !=null){
-                db.collection("users").document(currentFirebaseUser.uid).update("username", username2)
-                        .addOnSuccessListener { Log.d("username update", "DocumentSnapshot successfully updated!")
-                            getUsername()}
-                        .addOnFailureListener { e -> Log.w("username update", "Error updating document", e) }
-            }
+        if(username2 != usernameShow.text){
+            val fireStore = Firestore()
+            fireStore.updateUsername(username2,applicationContext)
+            getUsername()
         }else{
-
             Toast.makeText(applicationContext,"Kullanıcı adın eskisiyle aynı",Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun getUsername (){
 
-        Thread.sleep(2000)
-        val db = getDatabase()
-        val currentFirebaseUser = getCurrentFirebaseUser()
 
-        if(currentFirebaseUser !=null){
-            db.collection("users").document(currentFirebaseUser.uid).get()
-                    .addOnSuccessListener { documentSnapshot ->
-                        if(documentSnapshot!=null){
-                            Log.d("pprofile", "DocumentSnapshot data : ${documentSnapshot.data}")
-                            username= documentSnapshot.getString("username").toString()
-                            usernameShow.text = documentSnapshot.getString("username")
-
-                        } else {
-                            Log.d("pprofile", "No such document")
-                        }
-                    }.addOnFailureListener{ exception ->
-                        Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show()
-                        Log.d("pprofile", "get failed with", exception)
-                    }
-        }else{
-            Log.d("pprofile", "NULL")
-        }
-    }
-    private fun setFirstLogin(){
+        val fireStore = Firestore()
+        username= fireStore.getUsername(applicationContext,usernameShow)
 
     }
 
@@ -193,9 +153,6 @@ class ProfileActivity : AppCompatActivity() {
             givenName.text = personGivenName
             email.text = personEmail
             Glide.with(this).load(personPhoto).into(imageProfile)
-
-
-
         }
     }
 
@@ -226,7 +183,8 @@ class ProfileActivity : AppCompatActivity() {
                 // Google Sign In was successful, authenticate with Firebase
 
                 val account = task.getResult(ApiException::class.java)
-                firebaseAuthWithGoogle(account?.idToken!!)
+                val fireStore = Firestore()
+                fireStore.firebaseAuthWithGoogle(account?.idToken!!,auth)
                 handleSignInResult()
 
             } catch (e: ApiException) {
@@ -238,7 +196,6 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun handleSignInResult() {
         try {
-            setFirstLogin()
             startActivity(Intent(this@ProfileActivity, ProfileActivity::class.java))
             finish()
 
@@ -248,38 +205,5 @@ class ProfileActivity : AppCompatActivity() {
 
         }
     }
-
-    private fun firebaseAuthWithGoogle(idToken: String) {
-        val credential = GoogleAuthProvider.getCredential(idToken, null)
-        auth.signInWithCredential(credential)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d("pprofile", "signInWithCredential:success")
-
-                    if(task.result!!.additionalUserInfo!!.isNewUser){
-                        Log.d("pprofile", "onComplete: new user ")
-                        val firestore = Firestore()
-                        firestore.firstLoginFirebase()
-                    }else{
-                        Log.d("pprofile", "onComplete: old user ")
-                    }
-
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w("pprofile", "signInWithCredential:failure", task.exception)
-                    // ...
-                }
-
-
-            }
-    }
-
-
-
-
-
-
-
 
 }

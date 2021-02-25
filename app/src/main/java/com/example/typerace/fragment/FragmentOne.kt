@@ -1,4 +1,4 @@
-package com.example.typerace
+package com.example.typerace.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.typerace.R
 
 class FragmentOne : Fragment() {
 

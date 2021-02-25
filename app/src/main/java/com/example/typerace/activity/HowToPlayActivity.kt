@@ -1,9 +1,12 @@
-package com.example.typerace
+package com.example.typerace.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import com.example.typerace.fragment.FragmentOne
+import com.example.typerace.fragment.FragmentTwo
+import com.example.typerace.R
 
 class HowToPlayActivity : AppCompatActivity (){
 
