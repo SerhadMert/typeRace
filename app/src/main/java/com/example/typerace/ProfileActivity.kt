@@ -1,7 +1,6 @@
 package com.example.typerace
 
 
-import android.R.attr
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,7 +15,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -27,32 +25,29 @@ import com.google.firebase.ktx.Firebase
 
 class ProfileActivity : AppCompatActivity() {
 
-    lateinit var exitBT: Button
-    lateinit var signInBt: SignInButton
-    lateinit var idProf: TextView
-    lateinit var givenName:TextView
-    lateinit var email:TextView
-    lateinit var fUser: FirebaseUser
-    lateinit var image_profile: ImageView
-    lateinit var profLayout:RelativeLayout
-    lateinit var prof2Layout: LinearLayout
-    lateinit var btHome : ImageButton
-    lateinit var usernameEdit : EditText
-    lateinit var usernameShow : TextView
-    lateinit var editProfile : Button
-    lateinit var saveProfile : Button
+    private lateinit var exitBT: Button
+    private lateinit var signInBt: SignInButton
+    private lateinit var idProf: TextView
+    private lateinit var givenName:TextView
+    private lateinit var email:TextView
+    private lateinit var imageProfile: ImageView
+    private lateinit var profLayout:RelativeLayout
+    private lateinit var prof2Layout: LinearLayout
+    private lateinit var btHome : ImageButton
+    private lateinit var usernameEdit : EditText
+    private lateinit var usernameShow : TextView
+    private lateinit var editProfile : Button
+    private lateinit var saveProfile : Button
 
-    lateinit var personName: String
-    lateinit var personGivenName: String
-    lateinit var personFamilyName: String
-    lateinit var personEmail: String
-    lateinit var personId: String
-    lateinit var personPhoto: Uri
+    private lateinit var username : String
+    private lateinit var personName: String
+    private lateinit var personGivenName: String
+    private lateinit var personEmail: String
+    private lateinit var personPhoto: Uri
 
     private lateinit var acct: GoogleSignInAccount
     private  lateinit var mGoogleSignInClient: GoogleSignInClient
-    lateinit var mGoogleSignInOptions: GoogleSignInOptions
-    val RC_SIGN_IN: Int = 1
+    private val rcSignIn: Int = 1
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +56,7 @@ class ProfileActivity : AppCompatActivity() {
 
         signInBt = findViewById(R.id.sign_in_button)
         idProf = findViewById(R.id.user_profile_name)
-        image_profile = findViewById(R.id.user_profile_photo)
+        imageProfile = findViewById(R.id.user_profile_photo)
         givenName = findViewById(R.id.user_given_name)
         exitBT = findViewById(R.id.exit_bt)
         email = findViewById(R.id.email)
@@ -76,67 +71,126 @@ class ProfileActivity : AppCompatActivity() {
         getUsername()
 
 
-        var acct2 = GoogleSignIn.getLastSignedInAccount(getBaseContext())
+        val acct2 = GoogleSignIn.getLastSignedInAccount(baseContext)
         if (acct2 != null) {
             acct=acct2
             displayProfile()
 
 
         }
-        createRequest();
+        createRequest()
 
 
         auth = Firebase.auth
 
-        signInBt.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                signIn()
-            }
+        signInBt.setOnClickListener { signIn() }
 
-        })
+        editProfile.setOnClickListener {
+            usernameShow.visibility = View.GONE
+            usernameEdit.visibility = View.VISIBLE
+            saveProfile.visibility = View.VISIBLE
+            editProfile.visibility = View.GONE
+            usernameEdit.setText(usernameShow.text)
+        }
+        saveProfile.setOnClickListener((View.OnClickListener {
+            val username2 = usernameEdit.text.toString()
+            usernameShow.visibility = View.VISIBLE
+            usernameEdit.visibility = View.GONE
+            saveProfile.visibility = View.GONE
+            editProfile.visibility = View.VISIBLE
 
-        editProfile.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                usernameShow.visibility = View.GONE
-                usernameEdit.visibility = View.VISIBLE
-                saveProfile.visibility = View.VISIBLE
-                editProfile.visibility = View.GONE
-                usernameEdit.setText(usernameShow.text);
-            }
-
-        })
-        saveProfile.setOnClickListener((object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                usernameShow.visibility = View.VISIBLE
-                usernameEdit.visibility = View.GONE
-                saveProfile.visibility = View.GONE
-                editProfile.visibility = View.VISIBLE
-            }
-
+            saveNickname(username2)
         }))
 
 
-        exitBT.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                mGoogleSignInClient.signOut()
-                startActivity(Intent(this@ProfileActivity, ProfileActivity::class.java))
-                finish()
-            }
+        exitBT.setOnClickListener {
+            mGoogleSignInClient.signOut()
+            startActivity(Intent(this@ProfileActivity, ProfileActivity::class.java))
+            finish()
+        }
 
-        })
+        btHome.setOnClickListener {
+            startActivity(Intent(this@ProfileActivity, MainActivity::class.java))
+            finish()
+        }
 
-        btHome.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                startActivity(Intent(this@ProfileActivity, MainActivity::class.java))
-                finish()
-            }
-
-        })
-
-        
 
     }
-    fun createRequest(){
+
+    private fun getCurrentFirebaseUser(): FirebaseUser? {
+        return FirebaseAuth.getInstance().currentUser
+    }
+
+    private fun getDatabase(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
+    }
+
+    private fun saveNickname(username2 :String){
+        if(username2 != username){
+            val db = getDatabase()
+            val currentFirebaseUser = getCurrentFirebaseUser()
+            if (currentFirebaseUser !=null){
+                db.collection("users").document(currentFirebaseUser.uid).update("nickname", username2)
+                        .addOnSuccessListener { Log.d("username update", "DocumentSnapshot successfully updated!")
+                            getUsername()}
+                        .addOnFailureListener { e -> Log.w("username update", "Error updating document", e) }
+            }
+
+
+        }
+    }
+
+    private fun getUsername (){
+
+
+        val db = getDatabase()
+
+        val currentFirebaseUser = getCurrentFirebaseUser()
+
+        if(currentFirebaseUser !=null){
+            val docRef = db.collection("users").document(currentFirebaseUser.uid)
+            docRef.get()
+                    .addOnSuccessListener { document ->
+                        if(document!=null){
+                            Log.d("getUsername", "DocumentSnapshot data : ${document.data}")
+                            username= document.getString("nickname").toString()
+                            usernameShow.text = username
+
+                        } else {
+                            Log.d("getUsername", "No such document")
+                        }
+                    }
+                    .addOnFailureListener{ exception ->
+                        Log.d("getUsername", "get failed with", exception)
+                    }
+        }
+    }
+
+    private fun displayProfile(){
+        if(GoogleSignIn.getLastSignedInAccount(this)!=null){
+            acct = GoogleSignIn.getLastSignedInAccount(applicationContext)!!
+            personName = acct.displayName!!
+            personGivenName = acct.givenName!!
+            personEmail = acct.email!!
+            personPhoto = acct.photoUrl!!
+
+            signInBt.visibility = View.INVISIBLE
+            profLayout.visibility= View.VISIBLE
+            prof2Layout.visibility= View.VISIBLE
+
+
+            idProf.text = personName
+            givenName.text = personGivenName
+            email.text = personEmail
+            Glide.with(this).load(personPhoto).into(imageProfile)
+
+
+        }
+    }
+
+
+
+    private fun createRequest(){
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -146,9 +200,9 @@ class ProfileActivity : AppCompatActivity() {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
     }
-    fun signIn(){
+    private fun signIn(){
         val signInIntent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        startActivityForResult(signInIntent, rcSignIn)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -156,25 +210,23 @@ class ProfileActivity : AppCompatActivity() {
 
         // Result returned from GOOGLE
 
-        if (requestCode === RC_SIGN_IN) {
+        if (requestCode == rcSignIn) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)
-                handleSignInResult(task)
+                handleSignInResult()
                 firebaseAuthWithGoogle(account?.idToken!!)
             } catch (e: ApiException) {
 
                 Toast.makeText(applicationContext, "Google hesabına giriş yapılırken bir hata oluştu" + e.localizedMessage, Toast.LENGTH_LONG).show()
             }
-        } else {
-
         }
     }
 
-    fun handleSignInResult(completedTask: Task<GoogleSignInAccount>){
+    private fun handleSignInResult() {
         try {
-            val account = completedTask.getResult(ApiException::class.java)
+            //val account = completedTask.getResult(ApiException::class.java)
 
             // Signed in successfully, show authenticated UI.
             startActivity(Intent(this@ProfileActivity, ProfileActivity::class.java))
@@ -194,7 +246,6 @@ class ProfileActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("firebase auth", "signInWithCredential:success")
-                    val user = auth.currentUser
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("firebase auth", "signInWithCredential:failure", task.exception)
@@ -207,55 +258,7 @@ class ProfileActivity : AppCompatActivity() {
 
 
 
-    fun displayProfile(){
-        if(GoogleSignIn.getLastSignedInAccount(this)!=null){
-            acct = GoogleSignIn.getLastSignedInAccount(applicationContext)!!
-            if (acct != null) {
-                personName = acct.getDisplayName()!!
-                personGivenName = acct.getGivenName()!!
-                personEmail = acct.getEmail()!!
-                personPhoto = acct.getPhotoUrl()!!
 
-                signInBt.visibility = View.INVISIBLE
-                profLayout.visibility= View.VISIBLE
-                prof2Layout.visibility= View.VISIBLE
-
-
-                idProf.setText(personName)
-                givenName.setText(personGivenName)
-                email.setText(personEmail)
-                Glide.with(this).load(personPhoto).into(image_profile)
-
-
-            }
-
-        }
-    }
-
-    fun getUsername (){
-
-
-        val db = FirebaseFirestore.getInstance()
-
-        val currentFirebaseUser = FirebaseAuth.getInstance().currentUser
-
-        if(currentFirebaseUser !=null){
-            val docRef = db.collection("users").document(currentFirebaseUser.uid)
-            docRef.get()
-                    .addOnSuccessListener { document ->
-                        if(document!=null){
-                            Log.d("getUsername", "DocumentSnapshot data : ${document.data}")
-                            usernameShow.text=document.getString("nickname")
-
-                        } else {
-                            Log.d("getUsername", "No such document")
-                        }
-                    }
-                    .addOnFailureListener{ exception ->
-                        Log.d("getUsername", "get failed with", exception)
-                    }
-        }
-    }
 
 
 
