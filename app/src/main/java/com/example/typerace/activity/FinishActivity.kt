@@ -19,6 +19,8 @@ class FinishActivity : AppCompatActivity() {
     private lateinit var replayBt: Button
     private lateinit var mainBt: Button
     private lateinit var highScoreText : TextView
+    private lateinit var username : String
+    private lateinit var usernameShow : TextView
 
 
     @SuppressLint("SetTextI18n")
@@ -28,11 +30,12 @@ class FinishActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        scoreTxt = findViewById(R.id.crd1_score)
+        scoreTxt = findViewById(R.id.txt_score)
         wordTxt = findViewById(R.id.crd1_true_false_word)
         replayBt = findViewById(R.id.replay_bt)
         mainBt = findViewById(R.id.main_bt)
         highScoreText = findViewById(R.id.high_score_text)
+        usernameShow = findViewById(R.id.username_show)
 
 
 
@@ -45,6 +48,7 @@ class FinishActivity : AppCompatActivity() {
 
         val firestore = Firestore()
         if(FirebaseAuth.getInstance().currentUser != null){
+            getUsername()
             if(firestore.getScore() < score){
                 firestore.setScore(score.toLong())
                 highScoreText.visibility=View.VISIBLE
@@ -53,7 +57,7 @@ class FinishActivity : AppCompatActivity() {
         }
 
 
-        scoreTxt.text = "SKOR  $score"
+        scoreTxt.text = "$score"
         wordTxt.text = if(falseWord==0 && trueWord!=0)
             "1 dakikada $trueWord kelime yazdınız.\n Bunların hepsi doğru :)"
          else if(falseWord==0 && trueWord==0)
@@ -74,6 +78,11 @@ class FinishActivity : AppCompatActivity() {
 
 
 
+    }
+    private fun getUsername (){
+
+        val fireStore = Firestore()
+        username= fireStore.getUsername(applicationContext, usernameShow)
     }
 }
 
