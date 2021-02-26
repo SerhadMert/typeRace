@@ -6,19 +6,35 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/catLottie"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="500dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+
+        app:lottie_rawRes="@raw/salad_cat"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/high_score_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/aldrich"
         android:rotation="-50"
         android:text="En yüksek skor :)"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="@+id/cardView"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -31,8 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13999999">
-
+        app:layout_constraintVertical_bias="0.45">
 
 
         <LinearLayout
@@ -40,8 +55,6 @@
             android:layout_height="match_parent"
             android:background="@drawable/card_view_background_2"
             android:orientation="vertical">
-
-
 
 
             <LinearLayout
@@ -64,8 +77,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Score 0"
                         android:fontFamily="@font/aldrich"
+                        android:text="Score 0"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
                         android:textSize="30dp" />
@@ -119,6 +132,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/aldrich"
                         android:text="1 dakikada 0 kelime yazdınız.\n bunlardan 0 tanesi yanlıştı"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
@@ -143,7 +157,7 @@
         style="@style/MyButton"
         android:layout_width="150dp"
         android:layout_height="80dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/aldrich"
         android:text="Yeniden Oyna"
         android:textSize="25sp"

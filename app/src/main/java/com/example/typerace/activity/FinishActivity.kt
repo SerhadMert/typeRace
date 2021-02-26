@@ -54,9 +54,11 @@ class FinishActivity : AppCompatActivity() {
 
 
         scoreTxt.text = "SKOR  $score"
-        wordTxt.text = if(falseWord==0)
+        wordTxt.text = if(falseWord==0 && trueWord!=0)
             "1 dakikada $trueWord kelime yazdınız.\n Bunların hepsi doğru :)"
-         else
+         else if(falseWord==0 && trueWord==0)
+             "Dostum biraz çabalasaydın keşke :("
+             else
             "1 dakikada  ${trueWord + falseWord}  kelime yazdınız.\n Bunlardan $trueWord tanesi doğru  $falseWord  tanesi yanlış."
 
         replayBt.setOnClickListener {
