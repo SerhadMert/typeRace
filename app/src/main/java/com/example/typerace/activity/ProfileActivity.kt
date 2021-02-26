@@ -64,7 +64,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-
+        supportActionBar?.hide()
 
         signInBt = findViewById(R.id.sign_in_button)
         idProf = findViewById(R.id.user_profile_name)
