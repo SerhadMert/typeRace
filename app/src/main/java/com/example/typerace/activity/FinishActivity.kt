@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.typerace.*
+import kotlinx.android.synthetic.main.activity_finish.*
 
 
 class FinishActivity : AppCompatActivity() {
@@ -22,6 +23,8 @@ class FinishActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_finish)
 
+
+
         supportActionBar?.hide()
 
         scoreTxt = findViewById(R.id.crd1_score)
@@ -36,9 +39,11 @@ class FinishActivity : AppCompatActivity() {
         val falseWord = Integer.parseInt(intent.getStringExtra(SCORE_MESSAGE_F))
 
         scoreTxt.text = "SKOR  ${(trueWord * 5)+(falseWord * 1)}"
-        wordTxt.text = if(falseWord==0)
+        wordTxt.text = if(falseWord==0 && trueWord!=0)
             "1 dakikada $trueWord kelime yazdınız.\n Bunların hepsi doğru :)"
-         else
+         else if(falseWord==0 && trueWord==0)
+             "Dostum biraz uğraşsaydın keşke :("
+             else
             "1 dakikada  ${trueWord + falseWord}  kelime yazdınız.\n Bunlardan $trueWord tanesi doğru  $falseWord  tanesi yanlış."
 
         replayBt.setOnClickListener {
