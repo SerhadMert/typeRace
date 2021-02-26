@@ -26,7 +26,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.lang.Thread.sleep
-import kotlin.math.roundToInt
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -90,7 +89,7 @@ class ProfileActivity : AppCompatActivity() {
         if (acct2 != null) {
             showAlert()
             timerMet(3000)
-            var thread =Thread {
+            val thread =Thread {
                 sleep(1000)
                 getUsername()
             }
@@ -234,23 +233,24 @@ class ProfileActivity : AppCompatActivity() {
                 .setView(mDialogView)
         mAlertDialog =mBuilder.create()
 
-        val width = (resources.displayMetrics.widthPixels*0.002f)
-        val height = (resources.displayMetrics.heightPixels*0.002f)
 
         mAlertDialog.show()
 
-            val displayMetrics = DisplayMetrics()
-            windowManager.defaultDisplay.getMetrics(displayMetrics)
-            var displayWidth = displayMetrics.widthPixels
-            var displayHeight = displayMetrics.heightPixels
-            var layoutParams =  WindowManager.LayoutParams()
-            layoutParams.copyFrom(mAlertDialog.window?.attributes)
-           /* layoutParams.dimAmount = 0.9F;
-            layoutParams.screenBrightness = 1.0F;*/
-            layoutParams.width = (displayWidth * 0.9f).toInt()
-            layoutParams.height = (displayHeight * 0.89f).toInt()
-            mAlertDialog.getWindow()?.setAttributes(layoutParams);
-            mAlertDialog.getWindow()?.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        var displayWidth = displayMetrics.widthPixels
+        var displayHeight = displayMetrics.heightPixels
+        var layoutParams =  WindowManager.LayoutParams()
+        layoutParams.copyFrom(mAlertDialog.window?.attributes)
+
+        /* layoutParams.dimAmount = 0.9F
+        layoutParams.screenBrightness = 1.0F*/
+
+        layoutParams.width = (displayWidth * 0.9f).toInt()
+        layoutParams.height = (displayHeight * 0.89f).toInt()
+        mAlertDialog.window?.attributes = layoutParams
+        mAlertDialog.window?.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+
 
 
     }
