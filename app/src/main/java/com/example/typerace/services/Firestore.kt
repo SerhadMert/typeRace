@@ -5,7 +5,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
-import com.example.typerace.ProfileActivity
+import com.example.typerace.activity.ProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider

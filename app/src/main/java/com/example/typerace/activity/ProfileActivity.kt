@@ -1,22 +1,20 @@
-package com.example.typerace
+package com.example.typerace.activity
 
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.typerace.activity.FinishActivity
-import com.example.typerace.activity.MainActivity
-import com.example.typerace.activity.SCORE_MESSAGE_F
-import com.example.typerace.activity.SCORE_MESSAGE_T
+import com.example.typerace.R
 import com.example.typerace.services.Firestore
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -24,12 +22,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.dialog.MaterialDialogs
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.shreyaspatil.MaterialDialog.MaterialDialog
+import java.lang.Thread.sleep
+import kotlin.math.roundToInt
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -60,12 +57,15 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
 
     private lateinit var timer: CountDownTimer
+    private lateinit var mAlertDialog : AlertDialog
     var currentMillis = 0L
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+
 
         signInBt = findViewById(R.id.sign_in_button)
         idProf = findViewById(R.id.user_profile_name)
@@ -82,12 +82,20 @@ class ProfileActivity : AppCompatActivity() {
         saveProfile = findViewById(R.id.save_profile)
 
 
+
+
         auth = Firebase.auth
 
         val acct2 = GoogleSignIn.getLastSignedInAccount(baseContext)
         if (acct2 != null) {
+            showAlert()
             timerMet(3000)
-            getUsername()
+            var thread =Thread {
+                sleep(1000)
+                getUsername()
+            }
+            thread.start()
+
             acct=acct2
             displayProfile()
         }
@@ -132,13 +140,13 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-    private fun saveNickname(username2 :String){
+    private fun saveNickname(username2: String){
         if(username2 != usernameShow.text){
             val fireStore = Firestore()
-            fireStore.updateUsername(username2,applicationContext)
+            fireStore.updateUsername(username2, applicationContext)
             getUsername()
         }else{
-            Toast.makeText(applicationContext,"Kullanıcı adın eskisiyle aynı",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Kullanıcı adın eskisiyle aynı", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -146,7 +154,7 @@ class ProfileActivity : AppCompatActivity() {
 
 
         val fireStore = Firestore()
-        username= fireStore.getUsername(applicationContext,usernameShow)
+        username= fireStore.getUsername(applicationContext, usernameShow)
 
     }
 
@@ -198,7 +206,7 @@ class ProfileActivity : AppCompatActivity() {
 
                 val account = task.getResult(ApiException::class.java)
                 val fireStore = Firestore()
-                fireStore.firebaseAuthWithGoogle(account?.idToken!!,auth)
+                fireStore.firebaseAuthWithGoogle(account?.idToken!!, auth)
                 handleSignInResult()
 
             } catch (e: ApiException) {
@@ -215,9 +223,36 @@ class ProfileActivity : AppCompatActivity() {
 
         } catch (e: ApiException) {
 
+
             Log.w("pprofile", "signInResult:failed code=" + e.statusCode)
 
         }
+    }
+    private fun showAlert(){
+        val mDialogView = LayoutInflater.from(this@ProfileActivity).inflate(R.layout.layout_profile_wait, null)
+        val mBuilder = AlertDialog.Builder(this@ProfileActivity,R.style.Theme_D1NoTitleDim)
+                .setView(mDialogView)
+        mAlertDialog =mBuilder.create()
+
+        val width = (resources.displayMetrics.widthPixels*0.002f)
+        val height = (resources.displayMetrics.heightPixels*0.002f)
+
+        mAlertDialog.show()
+
+            val displayMetrics = DisplayMetrics()
+            windowManager.defaultDisplay.getMetrics(displayMetrics)
+            var displayWidth = displayMetrics.widthPixels
+            var displayHeight = displayMetrics.heightPixels
+            var layoutParams =  WindowManager.LayoutParams()
+            layoutParams.copyFrom(mAlertDialog.window?.attributes)
+           /* layoutParams.dimAmount = 0.9F;
+            layoutParams.screenBrightness = 1.0F;*/
+            layoutParams.width = (displayWidth * 0.9f).toInt()
+            layoutParams.height = (displayHeight * 0.89f).toInt()
+            mAlertDialog.getWindow()?.setAttributes(layoutParams);
+            mAlertDialog.getWindow()?.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+
+
     }
 
 
@@ -225,11 +260,6 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun timerMet(time: Long) {
         timer = object : CountDownTimer(time, 1000) {
-
-            val mDialogView = LayoutInflater.from(this@ProfileActivity).inflate(R.layout.activity_layout_profile_pop_up, null)
-            val mBuilder = AlertDialog.Builder(this@ProfileActivity)
-                .setView(mDialogView)
-                val mAlertDialog=mBuilder.show()
 
 
 
@@ -244,6 +274,7 @@ class ProfileActivity : AppCompatActivity() {
             override fun onFinish() {
 
                 mAlertDialog.dismiss()
+
             }
 
         }

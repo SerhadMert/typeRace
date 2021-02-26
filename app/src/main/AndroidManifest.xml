@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TyperCompetition">
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.HowToPlayActivity" />
         <activity android:name=".activity.RankActivity" />
         <activity android:name=".activity.GameActivity" />
