@@ -3,11 +3,13 @@ package com.example.typerace.activity
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.typerace.*
-import kotlinx.android.synthetic.main.activity_finish.*
+import com.example.typerace.services.Firestore
+import com.google.firebase.auth.FirebaseAuth
 
 
 class FinishActivity : AppCompatActivity() {
@@ -16,6 +18,7 @@ class FinishActivity : AppCompatActivity() {
     private lateinit var wordTxt: TextView
     private lateinit var replayBt: Button
     private lateinit var mainBt: Button
+    private lateinit var highScoreText : TextView
 
 
     @SuppressLint("SetTextI18n")
@@ -23,14 +26,14 @@ class FinishActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_finish)
 
-
-
         supportActionBar?.hide()
 
         scoreTxt = findViewById(R.id.crd1_score)
         wordTxt = findViewById(R.id.crd1_true_false_word)
-        replayBt = findViewById(R.id.replayBt)
-        this.mainBt = findViewById(R.id.mainBt)
+        replayBt = findViewById(R.id.replay_bt)
+        mainBt = findViewById(R.id.main_bt)
+        highScoreText = findViewById(R.id.high_score_text)
+
 
 
         @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -38,12 +41,22 @@ class FinishActivity : AppCompatActivity() {
         @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
         val falseWord = Integer.parseInt(intent.getStringExtra(SCORE_MESSAGE_F))
 
-        scoreTxt.text = "SKOR  ${(trueWord * 5)+(falseWord * 1)}"
-        wordTxt.text = if(falseWord==0 && trueWord!=0)
+        val score = (trueWord*5) + (falseWord*1)
+
+        val firestore = Firestore()
+        if(FirebaseAuth.getInstance().currentUser != null){
+            if(firestore.getScore() < score){
+                firestore.setScore(score.toLong())
+                highScoreText.visibility=View.VISIBLE
+            }
+
+        }
+
+
+        scoreTxt.text = "SKOR  $score"
+        wordTxt.text = if(falseWord==0)
             "1 dakikada $trueWord kelime yazdınız.\n Bunların hepsi doğru :)"
-         else if(falseWord==0 && trueWord==0)
-             "Dostum biraz uğraşsaydın keşke :("
-             else
+         else
             "1 dakikada  ${trueWord + falseWord}  kelime yazdınız.\n Bunlardan $trueWord tanesi doğru  $falseWord  tanesi yanlış."
 
         replayBt.setOnClickListener {

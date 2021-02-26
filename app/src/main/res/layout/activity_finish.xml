@@ -5,9 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.FinishActivity">
+    tools:context=".activity.MainActivity">
 
-
+    <TextView
+        android:id="@+id/high_score_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:rotation="-50"
+        android:text="En yüksek skor :)"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -22,11 +33,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.13999999">
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/card_view_background_2"
             android:orientation="vertical">
+
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -123,7 +139,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/replayBt"
+        android:id="@+id/replay_bt"
         style="@style/MyButton"
         android:layout_width="150dp"
         android:layout_height="80dp"
@@ -137,7 +153,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
     <Button
-        android:id="@+id/mainBt"
+        android:id="@+id/main_bt"
         style="@style/MyButton"
         android:layout_width="150dp"
         android:layout_height="80dp"
@@ -148,7 +164,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/replayBt" />
+        app:layout_constraintTop_toBottomOf="@+id/replay_bt" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
