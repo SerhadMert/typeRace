@@ -3,6 +3,7 @@ package com.example.typerace.services
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import com.example.typerace.activity.ProfileActivity
@@ -90,6 +91,7 @@ class Firestore {
                         Log.d("ffirebase", "DocumentSnapshot data : ${documentSnapshot.data}")
                         username= documentSnapshot.getString("username").toString()
                         usernameShow.text=documentSnapshot.getString("username").toString()
+                        usernameShow.visibility=View.VISIBLE
 
                     } else {
                         Log.d("ffirebase", "No such document")

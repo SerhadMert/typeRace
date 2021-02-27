@@ -243,13 +243,12 @@ class ProfileActivity : AppCompatActivity() {
         var layoutParams =  WindowManager.LayoutParams()
         layoutParams.copyFrom(mAlertDialog.window?.attributes)
 
-        /* layoutParams.dimAmount = 0.9F
-        layoutParams.screenBrightness = 1.0F*/
+        layoutParams.dimAmount = 0.6f
+        layoutParams.screenBrightness = 1.0f
 
-        layoutParams.width = (displayWidth * 0.9f).toInt()
-        layoutParams.height = (displayHeight * 0.89f).toInt()
+        layoutParams.width = (displayWidth * 0.7f).toInt()
+        layoutParams.height = (displayHeight * 0.7f).toInt()
         mAlertDialog.window?.attributes = layoutParams
-        mAlertDialog.window?.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 
 
 

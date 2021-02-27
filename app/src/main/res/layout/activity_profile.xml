@@ -139,9 +139,9 @@
                         android:background="#fff"
                         android:clickable="true"
                         android:elevation="4dp"
-                        android:padding="20dp"
                         android:hint="Username"
-                        android:visibility="visible" />
+                        android:padding="20dp"
+                        android:visibility="invisible" />
                 </RelativeLayout>
 
 
