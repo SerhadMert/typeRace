@@ -44,7 +44,6 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var editProfile : Button
     private lateinit var saveProfile : Button
 
-    private lateinit var username : String
     private lateinit var personName: String
     private lateinit var personGivenName: String
     private lateinit var personEmail: String
@@ -153,7 +152,7 @@ class ProfileActivity : AppCompatActivity() {
 
 
         val fireStore = Firestore()
-        username= fireStore.getUsername(applicationContext, usernameShow)
+        fireStore.getUsername(applicationContext, usernameShow)
 
     }
 

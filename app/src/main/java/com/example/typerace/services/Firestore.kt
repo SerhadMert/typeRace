@@ -80,8 +80,7 @@ class Firestore {
                 }
     }
 
-    fun getUsername(context: Context,usernameShow : TextView):String{
-        var username ="null"
+    fun getUsername(context: Context,usernameShow : TextView){
         val db = getDatabase()
         val currentFirebaseUser = getCurrentFirebaseUser()
 
@@ -89,7 +88,6 @@ class Firestore {
                 .addOnSuccessListener { documentSnapshot ->
                     if(documentSnapshot!=null){
                         Log.d("ffirebase", "DocumentSnapshot data : ${documentSnapshot.data}")
-                        username= documentSnapshot.getString("username").toString()
                         usernameShow.text=documentSnapshot.getString("username").toString()
                         usernameShow.visibility=View.VISIBLE
 
@@ -100,7 +98,6 @@ class Firestore {
                     Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
                     Log.d("ffirebase", "get failed with", exception)
                 }
-        return username
     }
 
     fun firebaseAuthWithGoogle(idToken: String,auth: FirebaseAuth) {
