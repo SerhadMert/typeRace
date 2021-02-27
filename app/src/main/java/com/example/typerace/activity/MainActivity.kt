@@ -17,11 +17,11 @@ import kotlinx.android.synthetic.main.activity_settings.view.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var btGame: Button
-    private lateinit var btGlobal: Button
+    private lateinit var btGame: ImageButton
+    private lateinit var btGlobal: ImageButton
     private lateinit var btProfile: ImageButton
     private lateinit var btSettings: ImageButton
-    private lateinit var btHowToPlay: Button
+    private lateinit var btHowToPlay: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

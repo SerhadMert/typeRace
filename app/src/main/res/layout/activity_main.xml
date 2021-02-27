@@ -72,62 +72,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lottieKeyboard" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btGame"
-        style="@style/MyButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:animateLayoutChanges="true"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:fontFamily="@font/aldrich"
-        android:text="Oyna"
-        android:textColor="#fff"
-        android:textSize="25sp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_baseline_play_circle_outline_24"
+        android:background="@drawable/round_button"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btHowToPlay"
-        style="@style/MyButton"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:animateLayoutChanges="true"
-        android:fontFamily="@font/aldrich"
-        android:text='"?"'
-        android:textColor="#fff"
-        android:textSize="25sp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btGame"
-        app:layout_constraintVertical_bias="0.0" />
+        app:srcCompat="@drawable/ic_baseline_help_outline_24"
+        android:background="@drawable/round_button"
+        app:layout_constraintTop_toBottomOf="@+id/btGame" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btGlobal"
-        style="@style/MyButton"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:animateLayoutChanges="true"
-        android:fontFamily="@font/aldrich"
-        android:text="Sıralama"
-        android:textColor="#fff"
-        android:textSize="25sp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btHowToPlay"
-        app:layout_constraintVertical_bias="0.0" />
+        app:srcCompat="@drawable/ic_baseline_format_list_numbered_24"
+        android:background="@drawable/round_button"
+        app:layout_constraintTop_toBottomOf="@+id/btHowToPlay" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
