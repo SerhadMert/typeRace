@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.typerace.*
@@ -16,8 +17,8 @@ class FinishActivity : AppCompatActivity() {
 
     private lateinit var scoreTxt: TextView
     private lateinit var wordTxt: TextView
-    private lateinit var replayBt: Button
-    private lateinit var mainBt: Button
+    private lateinit var replayBt: ImageButton
+    private lateinit var mainBt: ImageButton
     private lateinit var highScoreText : TextView
     private lateinit var username : String
     private lateinit var usernameShow : TextView
@@ -34,7 +35,7 @@ class FinishActivity : AppCompatActivity() {
         wordTxt = findViewById(R.id.crd1_true_false_word)
         replayBt = findViewById(R.id.replay_bt)
         mainBt = findViewById(R.id.main_bt)
-        highScoreText = findViewById(R.id.high_score_text)
+       // highScoreText = findViewById(R.id.high_score_text)
         usernameShow = findViewById(R.id.username_show)
 
 
@@ -49,10 +50,11 @@ class FinishActivity : AppCompatActivity() {
         val firestore = Firestore()
         if(FirebaseAuth.getInstance().currentUser != null){
             getUsername()
-            if(firestore.getScore() < score){
+            usernameShow.visibility=View.VISIBLE
+           /* if(firestore.getScore() < score){
                 firestore.setScore(score.toLong())
                 highScoreText.visibility=View.VISIBLE
-            }
+            }*/
 
         }
 
@@ -82,7 +84,7 @@ class FinishActivity : AppCompatActivity() {
     private fun getUsername (){
 
         val fireStore = Firestore()
-        username= fireStore.getUsername(applicationContext, usernameShow)
+        fireStore.getUsername(applicationContext, usernameShow)
     }
 }
 
