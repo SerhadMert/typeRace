@@ -72,7 +72,7 @@ class GameActivity : AppCompatActivity() {
 
 
         //timer
-        timerMet(3000)
+        timerMet(60000)
 
 
         editText.addTextChangedListener(object : TextWatcher {
