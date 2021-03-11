@@ -2,17 +2,23 @@ package com.example.typerace.services
 
 
 import android.content.Context
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.util.Log
 import android.view.View
+import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.get
 import com.example.typerace.activity.ProfileActivity
 import com.google.android.gms.common.api.Api
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObjects
+import kotlinx.android.synthetic.main.activity_rank.view.*
 import java.util.Collections.list
+import kotlin.collections.List as List1
 
 class Firestore {
 
@@ -99,6 +105,19 @@ class Firestore {
                     Log.d("ffirebase", "get failed with", exception)
                 }
     }
+        fun getRank(context: Context,rank : ListView){
+        val db = getDatabase()
+            db.collection("users")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        for (document in result) {
+                            Log.d("getProp", "${document.id} => ${document.data}")
+
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d("getProp", "Error getting documents: ", exception)
+                    }}
 
     fun firebaseAuthWithGoogle(idToken: String,auth: FirebaseAuth) {
         val activity = ProfileActivity()
