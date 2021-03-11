@@ -72,7 +72,7 @@ class GameActivity : AppCompatActivity() {
 
 
         //timer
-        timerMet(3000)
+        timerMet(60000)
 
 
         editText.addTextChangedListener(object : TextWatcher {
@@ -187,7 +187,7 @@ class GameActivity : AppCompatActivity() {
                 //XML DOSYASININ ADI layout_popup_menu.xml Onun tasarımı yapıalcak
                 val mDialogView = LayoutInflater.from(this).inflate(R.layout.layout_popup_menu, null)
 
-                val mBuilder = AlertDialog.Builder(this)
+                val mBuilder = AlertDialog.Builder(this,R.style.Theme_D1NoTitleDim)
                     .setView(mDialogView)
                     .setTitle("")
 

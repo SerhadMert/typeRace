@@ -21,7 +21,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/aldrich"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/cyan"
                 android:textSize="25sp"
                 android:gravity="center"/>
 
@@ -62,39 +62,22 @@
 
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="300dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relative_layout"
-        app:layout_constraintVertical_bias="0.0">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/crd1_true_false_word"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="300dp"
+                android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/aldrich"
                 android:text="1 dakikada 0 kelime yazdınız.\n bunlardan 0 tanesi yanlıştı"
                 android:textAlignment="center"
-                android:textColor="@color/black"
+                android:textColor="@color/cyan"
                 android:textSize="18sp"
+                android:layout_marginTop="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-                </LinearLayout>
-
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/relative_layout" />
 
 
 
@@ -102,7 +85,10 @@
 
 
 
-    </androidx.cardview.widget.CardView>
+
+
+
+
 
     <ImageButton
         android:id="@+id/replay_bt"
@@ -114,7 +100,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_baseline_replay_24"
         android:background="@drawable/round_button"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+        app:layout_constraintTop_toBottomOf="@+id/crd1_true_false_word" />
 
     <ImageButton
         android:id="@+id/main_bt"
