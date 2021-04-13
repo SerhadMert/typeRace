@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.typerace.R
 
-class ScoreViewHolder (view: View) : RecyclerView.ViewHolder(view) {
+class UserViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     var username: TextView
     var score: TextView
 
