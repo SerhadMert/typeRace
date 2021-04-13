@@ -12,13 +12,13 @@ import com.example.typerace.dto.DataDTO
 class ScoreListHolder(viewGroup: ViewGroup) : RecyclerView.ViewHolder(LayoutInflater.from(viewGroup.context)
         .inflate(R.layout.item_card, viewGroup, false)) {
 
-    private val userName by lazy { itemView.findViewById<TextView>(R.id.user_name) }
+    private val username by lazy { itemView.findViewById<TextView>(R.id.user_name) }
     private val score by lazy { itemView.findViewById<TextView>(R.id.score) }
 
     fun bindTo(dataDTO: DataDTO  ) {
 
 
-        userName.text = dataDTO.userName
+        username.text = dataDTO.username
         score.text = dataDTO.score.toString()
 }
 }

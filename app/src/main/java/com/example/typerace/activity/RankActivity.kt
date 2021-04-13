@@ -47,7 +47,7 @@ class RankActivity : AppCompatActivity () {
             .addOnSuccessListener { result ->
                 for (document in result) {
                     Log.d("getProp", "${document.id} => ${document.data}")
-                    val properties = document.get(document.id + document.data,DataDTO::class.java)
+                    val properties = document.get("${document.data}",DataDTO::class.java)
                     if(properties!=null){
                         posts.add(properties)
                     }
@@ -59,9 +59,6 @@ class RankActivity : AppCompatActivity () {
             .addOnFailureListener { exception ->
                 Log.d("getProp", "Error getting documents: ", exception)
             }
-        val adapter=ScoreListAdapter(posts)
-        recyclerView.adapter=adapter
-        adapter.notifyDataSetChanged()
 
     }
 
