@@ -152,7 +152,7 @@ class Firestore {
         return currentUser!!
     }
 
-    private fun getDatabase(): FirebaseFirestore {
+    public fun getDatabase(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
     }
 }
