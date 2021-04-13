@@ -102,6 +102,18 @@ class RankActivity : AppCompatActivity () {
         adapter!!.notifyDataSetChanged()
         recyclerView.adapter = adapter
     }
+
+    public override fun onStart() {
+        super.onStart()
+
+        adapter!!.startListening()
+    }
+
+    public override fun onStop() {
+        super.onStop()
+
+        adapter!!.stopListening()
+    }
 }
 
 
