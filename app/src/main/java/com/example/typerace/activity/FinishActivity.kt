@@ -51,10 +51,10 @@ class FinishActivity : AppCompatActivity() {
         if(FirebaseAuth.getInstance().currentUser != null){
             getUsername()
             usernameShow.visibility=View.VISIBLE
-           /* if(firestore.getScore() < score){
+            if(firestore.getScore() < score){
                 firestore.setScore(score.toLong())
-                highScoreText.visibility=View.VISIBLE
-            }*/
+               // highScoreText.visibility=View.VISIBLE
+            }
 
         }
 
