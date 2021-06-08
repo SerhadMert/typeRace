@@ -76,14 +76,9 @@ class GameActivity : AppCompatActivity() {
 
 
         editText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             @SuppressLint("SetTextI18n")
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-
                 if (splitText.isNotEmpty()) {
                     var text = editText.text
                     val deneme = "$text".replace(" ", "")
@@ -97,35 +92,26 @@ class GameActivity : AppCompatActivity() {
                         mainText.text = spanText(splitText, Color.RED, splitText[0].length)
                     }
 
-
                     val isWhitespace = text.contains(" ")
                     if (isWhitespace) {
                         text = text.dropLast(1) as Editable?
                         if (text.toString() == splitText[0]) {
                             trueWord++
-                            editText.setText("")
+                            editText.text.clear()
                         } else {
                             falseWord++
-                            editText.setText("")
+                            editText.text.clear()
                         }
                         splitText = splitText.drop(1).toTypedArray()
                         mainText.text = spanText(splitText, color, splitText[0].length)
                         scoreText.text = "Doğru $trueWord-Yanlış $falseWord"
-
                     }
                 }
-
             }
-
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
-
-
+            override fun afterTextChanged(p0: Editable?) {}
         })
 
     }
-
 
     private fun timerMet(time: Long) {
         timer = object : CountDownTimer(time, 1000) {
@@ -164,7 +150,6 @@ class GameActivity : AppCompatActivity() {
             0, strs[0].length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-
         return spannable
     }
 

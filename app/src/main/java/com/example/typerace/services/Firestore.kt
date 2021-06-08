@@ -35,7 +35,6 @@ class Firestore {
         db.collection("users").document(currentFirebaseUser.uid).update("topScore", score)
                 .addOnSuccessListener {
                     Log.d("ffirebase setScore", "DocumentSnapshot successfully updated!")
-
                 }
                 .addOnFailureListener { e ->
                     Log.w("ffirebase setScore", "Error updating document", e)
@@ -54,8 +53,6 @@ class Firestore {
                     if(documentSnapshot!=null){
                         Log.d("ffirebase getScore", "DocumentSnapshot data : ${documentSnapshot.data}")
                         score= documentSnapshot.getLong("topScore")!!
-
-
                     } else {
                         Log.d("ffirebase getScore", "No such document")
                     }
@@ -98,19 +95,19 @@ class Firestore {
                     Log.d("ffirebase", "get failed with", exception)
                 }
     }
-        fun getRank(context: Context,listView : ListView){
-        val db = getDatabase()
-            db.collection("users")
-                    .get()
-                    .addOnSuccessListener { result ->
-                        for (document in result) {
-                            Log.d("getProp", "${document.id} => ${document.data}")
+    fun getRank(context: Context,listView : ListView){
+    val db = getDatabase()
+        db.collection("users")
+                .get()
+                .addOnSuccessListener { result ->
+                    for (document in result) {
+                        Log.d("getProp", "${document.id} => ${document.data}")
 
-                        }
                     }
-                    .addOnFailureListener { exception ->
-                        Log.d("getProp", "Error getting documents: ", exception)
-                    }}
+                }
+                .addOnFailureListener { exception ->
+                    Log.d("getProp", "Error getting documents: ", exception)
+                }}
 
     fun firebaseAuthWithGoogle(idToken: String,auth: FirebaseAuth) {
         val activity = ProfileActivity()
@@ -152,7 +149,7 @@ class Firestore {
         return currentUser!!
     }
 
-    public fun getDatabase(): FirebaseFirestore {
+    fun getDatabase(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
     }
 }

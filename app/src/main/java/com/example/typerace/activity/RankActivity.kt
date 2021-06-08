@@ -25,6 +25,8 @@ class RankActivity : AppCompatActivity () {
     private var db : FirebaseFirestore? = null
     private var adapter: FirestoreRecyclerAdapter<User, UserViewHolder>? = null
 
+    var scoreHash = hashMapOf<String, Int>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rank)
@@ -39,27 +41,11 @@ class RankActivity : AppCompatActivity () {
 
 
         getScoreList()
+        
+        val citiesRef = db!!.collection("users");
 
-        this.firestoreListener = db!!.collection("users")
-            .addSnapshotListener(EventListener { documentSnapshots, e ->
-                if (e != null) {
-                    Log.e("rankk", "Listen failed!", e)
-                    return@EventListener
-                }
 
-                userlist = mutableListOf()
 
-                if (documentSnapshots != null) {
-                    for (doc in documentSnapshots) {
-                        val user = doc.toObject(User::class.java)
-                        user.id = doc.id
-                        userlist.add(user)
-                    }
-                }
-
-                adapter!!.notifyDataSetChanged()
-                recyclerView.adapter = adapter
-            })
 
 
     }
@@ -68,17 +54,19 @@ class RankActivity : AppCompatActivity () {
 
         val query = db!!.collection("users")
 
+        val query2 = query.orderBy("topScore", Query.Direction.DESCENDING).limit(50)
+
         val response = FirestoreRecyclerOptions.Builder<User>()
-                .setQuery(query, User::class.java)
+                .setQuery(query2, User::class.java)
                 .build()
 
 
         adapter = object : FirestoreRecyclerAdapter<User, UserViewHolder>(response) {
             override fun onBindViewHolder(holder: UserViewHolder, position: Int, model: User) {
-                val user = userlist[position]
+                val user = response.snapshots
 
-                holder.username.text = user.username
-                holder.score.text = user.topScore.toString()
+                holder.username.text = model.username
+                holder.score.text = model.topScore.toString()
 
             }
 
