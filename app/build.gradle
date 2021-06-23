@@ -66,5 +66,7 @@ dependencies {
     implementation 'com.shreyaspatil:MaterialDialog:2.1'
     implementation 'com.airbnb.android:lottie:3.4.0'
 
+    implementation("androidx.room:room-runtime:2.3.0")
+
 
 }

@@ -1,12 +1,12 @@
 package com.example.typerace.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.typerace.Entitys.User
 import com.example.typerace.R
 import com.example.typerace.adapter.UserViewHolder
 import com.example.typerace.services.Firestore
