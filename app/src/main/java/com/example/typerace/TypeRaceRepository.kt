@@ -15,7 +15,7 @@ class TypeRaceRepository (private val wordDao: WordDao) {
     // off the main thread.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(words: List<Word>) {
+    suspend fun insertAll(words: List<Word>) {
         wordDao.insertAll(words)
     }
 }

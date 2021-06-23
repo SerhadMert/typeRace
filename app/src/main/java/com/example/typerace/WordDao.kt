@@ -10,13 +10,12 @@ interface WordDao {
     @Query("SELECT * FROM word_table")
     fun getAll(): List<Word>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(word: Word)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(word: Word)
 
     @Query("DELETE FROM word_table")
-    suspend fun deleteAll()
+    fun deleteAll()
 
     @Insert
-    @JvmSuppressWildcards
     fun insertAll(words : List<Word>)
 }

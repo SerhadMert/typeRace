@@ -6,16 +6,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.LinearInterpolator
-import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.example.typerace.R
+import com.example.typerace.*
+import androidx.activity.viewModels
+import com.example.typerace.Entitys.Word
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_settings.view.*
+import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
+
+    private val wordViewModel: WordViewModel by viewModels {
+        WordViewModelFactory((application as TypeRaceApplication).repository)
+    }
 
     private lateinit var btGame: ImageButton
     private lateinit var btGlobal: ImageButton
@@ -29,6 +35,14 @@ class MainActivity : AppCompatActivity() {
 
 
         supportActionBar?.hide()
+
+
+        val list = listOf<Word>(Word("AAA"),Word("BBB"), Word("CCC"), Word("DDD"))
+
+        runBlocking {
+            wordViewModel.insert(list)
+        }
+
 
 
         btGame = findViewById(R.id.btGame)
@@ -107,5 +121,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
 
 }
