@@ -37,11 +37,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
 
-        val list = listOf<Word>(Word("AAA"),Word("BBB"), Word("CCC"), Word("DDD"))
 
-        runBlocking {
-            wordViewModel.insert(list)
-        }
 
 
 

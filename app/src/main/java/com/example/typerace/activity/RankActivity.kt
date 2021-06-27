@@ -37,6 +37,8 @@ class RankActivity : AppCompatActivity () {
 
 
         val firestore =  Firestore()
+
+        firestore.getWords(applicationContext)
         db = firestore.getDatabase()
 
 
