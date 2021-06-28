@@ -18,9 +18,14 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.typerace.Entitys.Word
 import com.example.typerace.R
+import com.example.typerace.TypeRaceApplication
+import com.example.typerace.WordViewModel
+import com.example.typerace.WordViewModelFactory
 import kotlinx.android.synthetic.main.activity_settings.view.*
 import kotlinx.android.synthetic.main.layout_popup_menu.view.*
 
@@ -29,6 +34,11 @@ const val SCORE_MESSAGE_T = "com.example.typercompetition.SCORE_T"
 const val SCORE_MESSAGE_F = "com.example.typercompetition.SCORE_F"
 
 class GameActivity : AppCompatActivity() {
+
+    private val wordViewModel: WordViewModel by viewModels {
+        WordViewModelFactory((application as TypeRaceApplication).repository)
+    }
+
     var trueWord = 0
     var falseWord = 0
     var currentMillis = 0L
@@ -38,13 +48,6 @@ class GameActivity : AppCompatActivity() {
     lateinit var mainText: TextView
     lateinit var editText: EditText
 
-    private var textCompare: String =
-            "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam cursus nisl quis tortor aliquam vitae posuere risus lobortis " +
-                    "Phasellus sed augue neque Praesent semper tortor lorem ac aliquet nisl vulputate ut Duis volutpat condimentum nunc a commodo " +
-                    "Praesent venenatis metus lorem, et interdum risus tincidunt eu. Nullam fringilla vel tortor id auctor " +
-                    "Maecenas egestas nulla at consectetur posuere Integer eget lectus et lacus imperdiet fringilla Donec ut ex in erat consequat auctor " +
-                    "Aliquam metus lorem tristique non metus ac laoreet sodales quam Phasellus hendrerit lorem justo eget scelerisque arcu posuere ac " +
-                    "Integer porta dui non mattis iaculis arcu enim convallis"
 
 
 
@@ -59,6 +62,8 @@ class GameActivity : AppCompatActivity() {
         scoreText = findViewById(R.id.score)
         mainText = findViewById(R.id.main_text)
         timerText = findViewById(R.id.timer_text)
+
+        var textCompare =setWords(wordViewModel.allWords)
         
 
         val color = mainText.currentTextColor
@@ -111,6 +116,15 @@ class GameActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {}
         })
 
+    }
+
+    private fun setWords(words :List<Word>) : String{
+        var returnString = ""
+        var randomList = words.shuffled()
+        randomList.forEach { item ->
+            returnString +=item.word+" "
+        }
+        return returnString
     }
 
     private fun timerMet(time: Long) {

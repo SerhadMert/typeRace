@@ -70,7 +70,7 @@
                 android:layout_height="80dp"
                 android:layout_gravity="center"
                 android:fontFamily="@font/aldrich"
-                android:text="1 dakikada 0 kelime yazdınız.\n bunlardan 0 tanesi yanlıştı"
+                tools:text="1 dakikada 0 kelime yazdınız.\n bunlardan 0 tanesi yanlıştı"
                 android:textAlignment="center"
                 android:textColor="@color/cyan"
                 android:textSize="18sp"

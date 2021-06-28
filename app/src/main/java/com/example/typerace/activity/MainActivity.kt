@@ -1,8 +1,10 @@
 package com.example.typerace.activity
 
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.LinearInterpolator
@@ -37,7 +39,9 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
 
+        wordViewModel.getWords()
 
+        Log.i(TAG, "onCreate: list"+ wordViewModel.allWords.size)
 
 
 

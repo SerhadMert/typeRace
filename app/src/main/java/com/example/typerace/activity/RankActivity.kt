@@ -1,6 +1,8 @@
 package com.example.typerace.activity
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
@@ -38,7 +40,7 @@ class RankActivity : AppCompatActivity () {
 
         val firestore =  Firestore()
 
-        firestore.getWords(applicationContext)
+
         db = firestore.getDatabase()
 
 

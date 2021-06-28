@@ -7,6 +7,10 @@ import android.view.View
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.MutableLiveData
+import com.example.typerace.*
+import com.example.typerace.Entitys.Word
 import com.example.typerace.activity.ProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -14,6 +18,8 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 
 class Firestore {
+
+
 
     private fun firstLoginFirebase(){
         val db = getDatabase()
@@ -96,29 +102,9 @@ class Firestore {
                 }
     }
 
-    fun getWords(context: Context){
-        val db = getDatabase()
-
-        db.collection("data").document("words").get()
-            .addOnSuccessListener { documentSnapshot ->
-                if(documentSnapshot!=null){
-                    Log.d("ffirebase", "DocumentSnapshot data : ${documentSnapshot.data}")
-                    documentSnapshot?.data?.forEach { item ->
-                        val fieldName = item.key
-                        val fieldValue = item.value
-                        Log.d("ffirebase", "DocumentSnapshot data : ${fieldValue}")
-                    }
 
 
 
-                } else {
-                    Log.d("ffirebase", "No such document")
-                }
-            }.addOnFailureListener{ exception ->
-                Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
-                Log.d("ffirebase", "get failed with", exception)
-            }
-    }
     fun getRank(context: Context,listView : ListView){
     val db = getDatabase()
         db.collection("users")

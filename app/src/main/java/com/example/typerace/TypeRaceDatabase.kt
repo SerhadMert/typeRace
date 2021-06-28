@@ -46,22 +46,11 @@ abstract class TypeRaceDatabase : RoomDatabase() {
 
                 INSTANCE?.let { database ->
                     scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.wordDao())
                     }
                 }
             }
         }
 
 
-        suspend fun populateDatabase(wordDao: WordDao) {
-            // Start the app with a clean database every time.
-            // Not needed if you only populate on creation.
-            wordDao.deleteAll()
-
-            var word = Word("Hello")
-            wordDao.insert(word)
-            word = Word("World!")
-            wordDao.insert(word)
-        }
     }
 }

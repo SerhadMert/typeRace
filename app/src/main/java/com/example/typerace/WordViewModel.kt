@@ -21,6 +21,10 @@ class WordViewModel(private val repository: TypeRaceRepository) : ViewModel() {
     fun insert(words: List<Word>) = viewModelScope.launch {
         repository.insertAll(words)
     }
+
+    fun getWords() = viewModelScope.launch {
+        repository.getWords()
+    }
 }
 
 class WordViewModelFactory(private val repository: TypeRaceRepository) : ViewModelProvider.Factory {
