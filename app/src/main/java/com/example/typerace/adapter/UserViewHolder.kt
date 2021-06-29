@@ -8,10 +8,12 @@ import com.example.typerace.R
 class UserViewHolder (view: View) : RecyclerView.ViewHolder(view) {
     var username: TextView
     var score: TextView
+    var rank: TextView
 
     init {
         username = view.findViewById(R.id.user_name)
         score = view.findViewById(R.id.score)
+        rank = view.findViewById(R.id.user_rank)
 
     }
 }

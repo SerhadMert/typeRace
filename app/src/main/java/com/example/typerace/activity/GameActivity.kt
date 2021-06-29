@@ -26,7 +26,6 @@ import com.example.typerace.R
 import com.example.typerace.TypeRaceApplication
 import com.example.typerace.WordViewModel
 import com.example.typerace.WordViewModelFactory
-import kotlinx.android.synthetic.main.activity_settings.view.*
 import kotlinx.android.synthetic.main.layout_popup_menu.view.*
 
 
@@ -206,19 +205,7 @@ class GameActivity : AppCompatActivity() {
                     finish()
                 }
 
-                mDialogView.button3.setOnClickListener {
 
-                    val mDialogView = LayoutInflater.from(this).inflate(R.layout.activity_settings, null)
-                    val mBuilder = AlertDialog.Builder(this)
-                            .setView(mDialogView)
-                            .setTitle("")
-
-                    val  mAlertDialog = mBuilder.show()
-
-                    mDialogView.button_cikis.setOnClickListener {
-                        mAlertDialog.dismiss()
-                    }
-                }
 
                 mDialogView.button4.setOnClickListener {
                     val intent=Intent(this@GameActivity, MainActivity::class.java)

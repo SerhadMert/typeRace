@@ -31,18 +31,6 @@
         android:background="@drawable/round_button"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
-    <ImageButton
-        android:id="@+id/button3"
-        android:layout_gravity="center"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/menu_settings"
-        android:background="@drawable/round_button"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <ImageButton
         android:id="@+id/button4"

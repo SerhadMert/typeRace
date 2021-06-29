@@ -5,17 +5,13 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.widget.ImageButton
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.typerace.*
 import androidx.activity.viewModels
-import com.example.typerace.Entitys.Word
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_settings.view.*
 import kotlinx.coroutines.*
 
 
@@ -28,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btGame: ImageButton
     private lateinit var btGlobal: ImageButton
     private lateinit var btProfile: ImageButton
-    private lateinit var btSettings: ImageButton
     private lateinit var btHowToPlay: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         btGame = findViewById(R.id.btGame)
         btGlobal = findViewById(R.id.btGlobal)
         btProfile = findViewById(R.id.btProfile)
-        btSettings = findViewById(R.id.btSettings)
         btHowToPlay = findViewById(R.id.btHowToPlay)
 
         Thread {
@@ -61,7 +55,6 @@ class MainActivity : AppCompatActivity() {
                 btGame.translationY = 1000f
                 btGlobal.translationY = 1000f
                 btProfile.translationY = -200f
-                btSettings.translationY = -200f
                 btHowToPlay.translationY=1000f
 
                 btGame.animate()
@@ -79,11 +72,6 @@ class MainActivity : AppCompatActivity() {
                         .setInterpolator(LinearInterpolator())
                         .setStartDelay(500)
                         .start()
-                btSettings.animate()
-                        .translationY(0f)
-                        .setInterpolator(LinearInterpolator())
-                        .setStartDelay(500)
-                        .start()
                 btHowToPlay.animate()
                         .translationY(0f)
                         .setInterpolator(LinearInterpolator())
@@ -92,25 +80,11 @@ class MainActivity : AppCompatActivity() {
                 btGame.visibility = View.VISIBLE
                 btGlobal.visibility = View.VISIBLE
                 btProfile.visibility = View.VISIBLE
-                btSettings.visibility =View.VISIBLE
                 btHowToPlay.visibility =View.VISIBLE
 
                 btGame.setOnClickListener { startActivity(Intent(this@MainActivity, GameActivity::class.java)) }
 
                 btProfile.setOnClickListener { startActivity(Intent(this@MainActivity, ProfileActivity::class.java)) }
-
-                btSettings.setOnClickListener {
-                    val mDialogView = LayoutInflater.from(this@MainActivity).inflate(R.layout.activity_settings, null)
-                    val mBuilder = AlertDialog.Builder(this@MainActivity)
-                            .setView(mDialogView)
-                            .setTitle("")
-
-                    val mAlertDialog = mBuilder.show()
-
-                    mDialogView.button_cikis.setOnClickListener {
-                        mAlertDialog.dismiss()
-                    }
-                }
 
                 btGlobal.setOnClickListener { startActivity(Intent(this@MainActivity, RankActivity::class.java)) }
 

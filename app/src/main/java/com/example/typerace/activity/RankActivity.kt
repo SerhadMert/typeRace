@@ -19,15 +19,12 @@ import kotlinx.android.synthetic.main.item_card.*
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter as FirestoreRecyclerAdapter
 
 
-class RankActivity : AppCompatActivity () {
+class RankActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
-    private var firestoreListener: ListenerRegistration? = null
-    private var userlist = mutableListOf<User>()
-    private var db : FirebaseFirestore? = null
+    private var db: FirebaseFirestore? = null
     private var adapter: FirestoreRecyclerAdapter<User, UserViewHolder>? = null
 
-    var scoreHash = hashMapOf<String, Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,19 +35,13 @@ class RankActivity : AppCompatActivity () {
         recyclerView.apply { this.layoutManager = LinearLayoutManager(this@RankActivity) }
 
 
-        val firestore =  Firestore()
+        val firestore = Firestore()
 
 
         db = firestore.getDatabase()
 
 
         getScoreList()
-        
-        val citiesRef = db!!.collection("users");
-
-
-
-
 
     }
 
@@ -61,14 +52,15 @@ class RankActivity : AppCompatActivity () {
         val query2 = query.orderBy("topScore", Query.Direction.DESCENDING).limit(50)
 
         val response = FirestoreRecyclerOptions.Builder<User>()
-                .setQuery(query2, User::class.java)
-                .build()
+            .setQuery(query2, User::class.java)
+            .build()
 
 
         adapter = object : FirestoreRecyclerAdapter<User, UserViewHolder>(response) {
             override fun onBindViewHolder(holder: UserViewHolder, position: Int, model: User) {
                 val user = response.snapshots
 
+                holder.rank.text = (position + 1).toString()
                 holder.username.text = model.username
                 holder.score.text = model.topScore.toString()
 

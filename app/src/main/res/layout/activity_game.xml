@@ -20,8 +20,8 @@
         android:fontFamily="@font/aldrich"
         android:maxLength="100"
         android:padding="10dp"
-        android:text="paragraf"
-        android:textSize="25dp"
+        tools:text="paragraf"
+        android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/aldrich"
-                android:text="Clock"
+                tools:text="Clock"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="176dp" />
         </LinearLayout>
@@ -88,7 +88,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/aldrich"
-                android:text="Doğru 0 -Yanlış 0"
+                tools:text="Doğru 0 -Yanlış 0"
                 app:layout_constraintBottom_toTopOf="@+id/compare_text"
                 app:layout_constraintStart_toStartOf="@+id/compare_text" />
 
