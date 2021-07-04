@@ -33,16 +33,16 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var exitBT: Button
     private lateinit var signInBt: SignInButton
     private lateinit var idProf: TextView
-    private lateinit var givenName:TextView
-    private lateinit var email:TextView
+    private lateinit var givenName: TextView
+    private lateinit var email: TextView
     private lateinit var imageProfile: ImageView
-    private lateinit var profLayout:RelativeLayout
+    private lateinit var profLayout: RelativeLayout
     private lateinit var prof2Layout: LinearLayout
-    private lateinit var btHome : ImageButton
-    private lateinit var usernameEdit : EditText
-    private lateinit var usernameShow : TextView
-    private lateinit var editProfile : Button
-    private lateinit var saveProfile : Button
+    private lateinit var btHome: ImageButton
+    private lateinit var usernameEdit: EditText
+    private lateinit var usernameShow: TextView
+    private lateinit var editProfile: Button
+    private lateinit var saveProfile: Button
 
     private lateinit var personName: String
     private lateinit var personGivenName: String
@@ -50,12 +50,12 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var personPhoto: Uri
 
     private lateinit var acct: GoogleSignInAccount
-    private  lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
     private val rcSignIn: Int = 1
     private lateinit var auth: FirebaseAuth
 
     private lateinit var timer: CountDownTimer
-    private lateinit var mAlertDialog : AlertDialog
+    private lateinit var mAlertDialog: AlertDialog
     var currentMillis = 0L
 
 
@@ -88,13 +88,13 @@ class ProfileActivity : AppCompatActivity() {
         if (acct2 != null) {
             showAlert()
             timerMet(3000)
-            val thread =Thread {
+            val thread = Thread {
                 sleep(1000)
                 getUsername()
             }
             thread.start()
 
-            acct=acct2
+            acct = acct2
             displayProfile()
         }
         createRequest()
@@ -138,17 +138,18 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-    private fun saveNickname(username2: String){
-        if(username2 != usernameShow.text){
+    private fun saveNickname(username2: String) {
+        if (username2 != usernameShow.text) {
             val fireStore = Firestore()
             fireStore.updateUsername(username2, applicationContext)
             getUsername()
-        }else{
-            Toast.makeText(applicationContext, "Kullanıcı adın eskisiyle aynı", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(applicationContext, "Kullanıcı adın eskisiyle aynı", Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
-    private fun getUsername (){
+    private fun getUsername() {
 
 
         val fireStore = Firestore()
@@ -156,8 +157,8 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-    private fun displayProfile(){
-        if(GoogleSignIn.getLastSignedInAccount(this)!=null){
+    private fun displayProfile() {
+        if (GoogleSignIn.getLastSignedInAccount(this) != null) {
             acct = GoogleSignIn.getLastSignedInAccount(applicationContext)!!
             personName = acct.displayName!!
             personGivenName = acct.givenName!!
@@ -165,8 +166,8 @@ class ProfileActivity : AppCompatActivity() {
             personPhoto = acct.photoUrl!!
 
             signInBt.visibility = View.INVISIBLE
-            profLayout.visibility= View.VISIBLE
-            prof2Layout.visibility= View.VISIBLE
+            profLayout.visibility = View.VISIBLE
+            prof2Layout.visibility = View.VISIBLE
 
 
             idProf.text = personName
@@ -176,7 +177,7 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun createRequest(){
+    private fun createRequest() {
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -187,7 +188,7 @@ class ProfileActivity : AppCompatActivity() {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
-    private fun signIn(){
+    private fun signIn() {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, rcSignIn)
     }
@@ -209,7 +210,11 @@ class ProfileActivity : AppCompatActivity() {
 
             } catch (e: ApiException) {
 
-                Toast.makeText(applicationContext, "Google hesabına giriş yapılırken bir hata oluştu" + e.localizedMessage, Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    applicationContext,
+                    "Google hesabına giriş yapılırken bir hata oluştu" + e.localizedMessage,
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }
@@ -226,11 +231,13 @@ class ProfileActivity : AppCompatActivity() {
 
         }
     }
-    private fun showAlert(){
-        val mDialogView = LayoutInflater.from(this@ProfileActivity).inflate(R.layout.layout_profile_wait, null)
-        val mBuilder = AlertDialog.Builder(this@ProfileActivity,R.style.Theme_D1NoTitleDim)
-                .setView(mDialogView)
-        mAlertDialog =mBuilder.create()
+
+    private fun showAlert() {
+        val mDialogView =
+            LayoutInflater.from(this@ProfileActivity).inflate(R.layout.layout_profile_wait, null)
+        val mBuilder = AlertDialog.Builder(this@ProfileActivity, R.style.Theme_D1NoTitleDim)
+            .setView(mDialogView)
+        mAlertDialog = mBuilder.create()
 
 
         mAlertDialog.show()
@@ -239,7 +246,7 @@ class ProfileActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         var displayWidth = displayMetrics.widthPixels
         var displayHeight = displayMetrics.heightPixels
-        var layoutParams =  WindowManager.LayoutParams()
+        var layoutParams = WindowManager.LayoutParams()
         layoutParams.copyFrom(mAlertDialog.window?.attributes)
 
         layoutParams.dimAmount = 0.6f
@@ -250,21 +257,15 @@ class ProfileActivity : AppCompatActivity() {
         mAlertDialog.window?.attributes = layoutParams
 
 
-
     }
-
-
 
 
     private fun timerMet(time: Long) {
         timer = object : CountDownTimer(time, 1000) {
 
 
-
-
             override fun onTick(millisUntilFinished: Long) {
                 currentMillis = millisUntilFinished
-
 
 
             }

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.typerace.R
 import com.example.typerace.fragment.*
 
-class HowToPlayActivity : AppCompatActivity (){
+class HowToPlayActivity : AppCompatActivity() {
 
     private var isFragmentOneLoaded = true
     private var isFragmentCorrectLoaded = true
@@ -27,70 +27,83 @@ class HowToPlayActivity : AppCompatActivity (){
         change.setOnClickListener {
             if (isFragmentOneLoaded)
                 showFragmentCorrect()
-            else if(isFragmentCorrectLoaded)
+            else if (isFragmentCorrectLoaded)
                 showFragmentFalse()
-            else if(isFragmentFalseLoaded)
+            else if (isFragmentFalseLoaded)
                 showFragmentPause()
-            else if(isFragmentPauseLoaded)
+            else if (isFragmentPauseLoaded)
                 showFragmentFinish()
-            else if(isFragmentFinishLoaded)
+            else if (isFragmentFinishLoaded)
                 showFragmentRankList()
             else showFragmentOne()
         }
-        quit.setOnClickListener { startActivity(Intent(this@HowToPlayActivity, MainActivity::class.java)) }
+        quit.setOnClickListener {
+            startActivity(
+                Intent(
+                    this@HowToPlayActivity,
+                    MainActivity::class.java
+                )
+            )
+        }
 
     }
-    private fun showFragmentOne(){
+
+    private fun showFragmentOne() {
         val transaction = manager.beginTransaction()
-        val fragment= FragmentOne()
-        transaction.replace(R.id.fragment_holder,fragment)
+        val fragment = FragmentOne()
+        transaction.replace(R.id.fragment_holder, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
-        isFragmentOneLoaded=true
+        isFragmentOneLoaded = true
     }
-    private fun showFragmentCorrect(){
+
+    private fun showFragmentCorrect() {
         val transaction = manager.beginTransaction()
-        val fragment= FragmentCorrect()
-        transaction.replace(R.id.fragment_holder,fragment)
+        val fragment = FragmentCorrect()
+        transaction.replace(R.id.fragment_holder, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
-        isFragmentCorrectLoaded=true
-        isFragmentOneLoaded=false
+        isFragmentCorrectLoaded = true
+        isFragmentOneLoaded = false
     }
-    private fun showFragmentFalse(){
+
+    private fun showFragmentFalse() {
         val transaction = manager.beginTransaction()
-        val fragment= FragmentFalse()
-        transaction.replace(R.id.fragment_holder,fragment)
+        val fragment = FragmentFalse()
+        transaction.replace(R.id.fragment_holder, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
-        isFragmentFalseLoaded=true
-        isFragmentCorrectLoaded=false
+        isFragmentFalseLoaded = true
+        isFragmentCorrectLoaded = false
     }
-    private fun showFragmentPause(){
+
+    private fun showFragmentPause() {
         val transaction = manager.beginTransaction()
-        val fragment= FragmentPauseMenu()
-        transaction.replace(R.id.fragment_holder,fragment)
+        val fragment = FragmentPauseMenu()
+        transaction.replace(R.id.fragment_holder, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
-        isFragmentPauseLoaded=true
-        isFragmentFalseLoaded=false
+        isFragmentPauseLoaded = true
+        isFragmentFalseLoaded = false
     }
-    private fun showFragmentFinish(){
+
+    private fun showFragmentFinish() {
         val transaction = manager.beginTransaction()
-        val fragment= FragmentFinishActivity()
-        transaction.replace(R.id.fragment_holder,fragment)
+        val fragment = FragmentFinishActivity()
+        transaction.replace(R.id.fragment_holder, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
-        isFragmentFinishLoaded=true
-        isFragmentPauseLoaded=false
+        isFragmentFinishLoaded = true
+        isFragmentPauseLoaded = false
     }
-    private fun showFragmentRankList(){
+
+    private fun showFragmentRankList() {
         val transaction = manager.beginTransaction()
-        val fragment= FragmentRankList()
-        transaction.replace(R.id.fragment_holder,fragment)
+        val fragment = FragmentRankList()
+        transaction.replace(R.id.fragment_holder, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
-        isFragmentRankListLoaded=true
-        isFragmentFinishLoaded=false
+        isFragmentRankListLoaded = true
+        isFragmentFinishLoaded = false
     }
 }

@@ -13,59 +13,61 @@ class FragmentCorrect : Fragment() {
 
 
     override fun onAttach(context: Context) {
-        Log.d("FragmentCorrect","onAttach")
+        Log.d("FragmentCorrect", "onAttach")
         super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("FragmentCorrect","onCreate")
+        Log.d("FragmentCorrect", "onCreate")
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        Log.d("FragmentCorrect","onCreateView")
-        return inflater.inflate(R.layout.fragment_correct,container,false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        Log.d("FragmentCorrect", "onCreateView")
+        return inflater.inflate(R.layout.fragment_correct, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        Log.d("FragmentCorrect","onActivityCreated")
+        Log.d("FragmentCorrect", "onActivityCreated")
         super.onActivityCreated(savedInstanceState)
     }
 
     override fun onStart() {
-        Log.d("FragmentCorrect","onStart")
+        Log.d("FragmentCorrect", "onStart")
         super.onStart()
     }
 
     override fun onResume() {
-        Log.d("FragmentCorrect","onResume")
+        Log.d("FragmentCorrect", "onResume")
         super.onResume()
     }
 
     override fun onPause() {
-        Log.d("FragmentCorrect","onPause")
+        Log.d("FragmentCorrect", "onPause")
         super.onPause()
     }
 
     override fun onStop() {
-        Log.d("FragmentCorrect","onStop")
+        Log.d("FragmentCorrect", "onStop")
         super.onStop()
     }
 
     override fun onDestroyView() {
-        Log.d("FragmentCorrect","onDestroyView")
+        Log.d("FragmentCorrect", "onDestroyView")
         super.onDestroyView()
     }
 
     override fun onDestroy() {
-        Log.d("FragmentCorrect","onDestroy")
+        Log.d("FragmentCorrect", "onDestroy")
         super.onDestroy()
     }
 
     override fun onDetach() {
-        Log.d("FragmentCorrect","onDetach")
+        Log.d("FragmentCorrect", "onDetach")
         super.onDetach()
     }
 }

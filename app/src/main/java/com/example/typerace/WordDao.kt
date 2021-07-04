@@ -17,5 +17,5 @@ interface WordDao {
     fun deleteAll()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(words : List<Word>)
+    fun insertAll(words: List<Word>)
 }

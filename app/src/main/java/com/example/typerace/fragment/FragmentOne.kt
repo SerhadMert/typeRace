@@ -13,59 +13,61 @@ class FragmentOne : Fragment() {
 
 
     override fun onAttach(context: Context) {
-        Log.d("FragmentOne","onAttach")
+        Log.d("FragmentOne", "onAttach")
         super.onAttach(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("FragmentOne","onCreate")
+        Log.d("FragmentOne", "onCreate")
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        Log.d("FragmentOne","onCreateView")
-        return inflater.inflate(R.layout.fragment_one,container,false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        Log.d("FragmentOne", "onCreateView")
+        return inflater.inflate(R.layout.fragment_one, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        Log.d("FragmentOne","onActivityCreated")
+        Log.d("FragmentOne", "onActivityCreated")
         super.onActivityCreated(savedInstanceState)
     }
 
     override fun onStart() {
-        Log.d("FragmentOne","onStart")
+        Log.d("FragmentOne", "onStart")
         super.onStart()
     }
 
     override fun onResume() {
-        Log.d("FragmentOne","onResume")
+        Log.d("FragmentOne", "onResume")
         super.onResume()
     }
 
     override fun onPause() {
-        Log.d("FragmentOne","onPause")
+        Log.d("FragmentOne", "onPause")
         super.onPause()
     }
 
     override fun onStop() {
-        Log.d("FragmentOne","onStop")
+        Log.d("FragmentOne", "onStop")
         super.onStop()
     }
 
     override fun onDestroyView() {
-        Log.d("FragmentOne","onDestroyView")
+        Log.d("FragmentOne", "onDestroyView")
         super.onDestroyView()
     }
 
     override fun onDestroy() {
-        Log.d("FragmentOne","onDestroy")
+        Log.d("FragmentOne", "onDestroy")
         super.onDestroy()
     }
 
     override fun onDetach() {
-        Log.d("FragmentOne","onDetach")
+        Log.d("FragmentOne", "onDetach")
         super.onDetach()
     }
 }

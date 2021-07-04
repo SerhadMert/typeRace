@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         wordViewModel.getWords()
 
-        Log.i(TAG, "onCreate: list"+ wordViewModel.allWords.size)
+        Log.i(TAG, "onCreate: list" + wordViewModel.allWords.size)
 
 
 
@@ -55,40 +55,68 @@ class MainActivity : AppCompatActivity() {
                 btGame.translationY = 1000f
                 btGlobal.translationY = 1000f
                 btProfile.translationY = -200f
-                btHowToPlay.translationY=1000f
+                btHowToPlay.translationY = 1000f
 
                 btGame.animate()
-                        .translationY(0f)
-                        .setInterpolator(LinearInterpolator())
-                        .setStartDelay(500)
-                        .start()
+                    .translationY(0f)
+                    .setInterpolator(LinearInterpolator())
+                    .setStartDelay(500)
+                    .start()
                 btGlobal.animate()
-                        .translationY(0f)
-                        .setInterpolator(LinearInterpolator())
-                        .setStartDelay(500)
-                        .start()
+                    .translationY(0f)
+                    .setInterpolator(LinearInterpolator())
+                    .setStartDelay(500)
+                    .start()
                 btProfile.animate()
-                        .translationY(0f)
-                        .setInterpolator(LinearInterpolator())
-                        .setStartDelay(500)
-                        .start()
+                    .translationY(0f)
+                    .setInterpolator(LinearInterpolator())
+                    .setStartDelay(500)
+                    .start()
                 btHowToPlay.animate()
-                        .translationY(0f)
-                        .setInterpolator(LinearInterpolator())
-                        .setStartDelay(500)
-                        .start()
+                    .translationY(0f)
+                    .setInterpolator(LinearInterpolator())
+                    .setStartDelay(500)
+                    .start()
                 btGame.visibility = View.VISIBLE
                 btGlobal.visibility = View.VISIBLE
                 btProfile.visibility = View.VISIBLE
-                btHowToPlay.visibility =View.VISIBLE
+                btHowToPlay.visibility = View.VISIBLE
 
-                btGame.setOnClickListener { startActivity(Intent(this@MainActivity, GameActivity::class.java)) }
+                btGame.setOnClickListener {
+                    startActivity(
+                        Intent(
+                            this@MainActivity,
+                            GameActivity::class.java
+                        )
+                    )
+                }
 
-                btProfile.setOnClickListener { startActivity(Intent(this@MainActivity, ProfileActivity::class.java)) }
+                btProfile.setOnClickListener {
+                    startActivity(
+                        Intent(
+                            this@MainActivity,
+                            ProfileActivity::class.java
+                        )
+                    )
+                }
 
-                btGlobal.setOnClickListener { startActivity(Intent(this@MainActivity, RankActivity::class.java)) }
+                btGlobal.setOnClickListener {
+                    startActivity(
+                        Intent(
+                            this@MainActivity,
+                            RankActivity::class.java
+                        )
+                    )
+                }
 
-                btHowToPlay.setOnClickListener { startActivity(Intent(this@MainActivity, HowToPlayActivity::class.java)) }
+                btHowToPlay.setOnClickListener {
+                    startActivity(
+                        Intent(
+                            this@MainActivity,
+                            HowToPlayActivity::class.java
+                        )
+                    )
+                }
 
             }
         }.start()
