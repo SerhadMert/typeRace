@@ -130,8 +130,7 @@ class Firestore {
 
                         if(task.result!!.additionalUserInfo!!.isNewUser){
                             Log.d("ffirebase", "onComplete: new user ")
-                            val firestore = Firestore()
-                            firestore.firstLoginFirebase()
+                            this.firstLoginFirebase()
                         }else{
                             Log.d("ffirebase", "onComplete: old user ")
                         }
