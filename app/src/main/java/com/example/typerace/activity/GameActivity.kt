@@ -67,11 +67,7 @@ class GameActivity : AppCompatActivity() {
 
         val color = mainText.currentTextColor
 
-        //show text and array convert
-        mainText.text = textCompare
-
-        var splitText: Array<String> = textCompare.split(" ").toTypedArray()
-        mainText.text = spanText(splitText, color, splitText[0].length)
+        mainText.text = spanText(textCompare, color, textCompare.get(0).length)
 
 
 
@@ -83,31 +79,31 @@ class GameActivity : AppCompatActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             @SuppressLint("SetTextI18n")
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (splitText.isNotEmpty()) {
+                if (textCompare.isNotEmpty()) {
                     var text = editText.text
                     val deneme = "$text".replace(" ", "")
-                    if (splitText[0].length >= deneme.length) {
-                        if (splitText[0].substring(0, deneme.length) == deneme) {
-                            mainText.text = spanText(splitText, Color.GREEN, deneme.length)
+                    if (textCompare[0].length >= deneme.length) {
+                        if (textCompare[0].substring(0, deneme.length) == deneme) {
+                            mainText.text = spanText(textCompare, Color.GREEN, deneme.length)
                         } else {
-                            mainText.text = spanText(splitText, Color.RED, deneme.length)
+                            mainText.text = spanText(textCompare, Color.RED, deneme.length)
                         }
                     } else {
-                        mainText.text = spanText(splitText, Color.RED, splitText[0].length)
+                        mainText.text = spanText(textCompare, Color.RED, textCompare[0].length)
                     }
 
                     val isWhitespace = text.contains(" ")
                     if (isWhitespace) {
                         text = text.dropLast(1) as Editable?
-                        if (text.toString() == splitText[0]) {
+                        if (text.toString() == textCompare[0]) {
                             trueWord++
                             editText.text.clear()
                         } else {
                             falseWord++
                             editText.text.clear()
                         }
-                        splitText = splitText.drop(1).toTypedArray()
-                        mainText.text = spanText(splitText, color, splitText[0].length)
+                        textCompare.removeAt(0)
+                        mainText.text = spanText(textCompare, color, textCompare[0].length)
                         scoreText.text = "Doğru $trueWord-Yanlış $falseWord"
                     }
                 }
@@ -117,13 +113,13 @@ class GameActivity : AppCompatActivity() {
 
     }
 
-    private fun setWords(words :List<Word>) : String{
-        var returnString = ""
+    private fun setWords(words :List<Word>) : ArrayList<String> {
+        var returnList = ArrayList<String>()
         var randomList = words.shuffled()
         randomList.forEach { item ->
-            returnString +=item.word+" "
+            returnList.add(item.word)
         }
-        return returnString
+        return returnList
     }
 
     private fun timerMet(time: Long) {
@@ -146,7 +142,7 @@ class GameActivity : AppCompatActivity() {
     }
 
 
-    fun spanText(strs: Array<String>, color: Int, strLength: Int): Spannable {
+    fun spanText(strs: ArrayList<String>, color: Int, strLength: Int): Spannable {
         val spannable = SpannableString(strs.joinToString().replace(",", ""))
         spannable.setSpan(
             ForegroundColorSpan(color),
@@ -212,14 +208,7 @@ class GameActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-
-
-
-
-
             }
-
-
         }
         return super.onOptionsItemSelected(item)
     }
