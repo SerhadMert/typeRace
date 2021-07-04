@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.typerace.R
 
-class FragmentTwo : Fragment() {
+class FragmentRankList: Fragment() {
 
 
     override fun onAttach(context: Context) {
@@ -26,7 +26,7 @@ class FragmentTwo : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         Log.d("FragmentTwo","onCreateView")
-        return inflater.inflate(R.layout.fragment_two,container,false)
+        return inflater.inflate(R.layout.fragment_correct,container,false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
